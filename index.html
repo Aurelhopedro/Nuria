@@ -516,6 +516,328 @@ input::placeholder{color:var(--muted);opacity:1}
   .mode-card{min-height:auto}
 }
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
+
+
+/* =========================================================
+   NÚRIA ESTUDO 2.1 — UI/UX IMPLEMENTAÇÃO DO DESIGN FIGMA
+   Mobile-first • toque • legibilidade • movimento suave
+   ========================================================= */
+:root{
+  --n-navy:#1a1a2e;
+  --n-blue:#0f4c81;
+  --n-gold:#c9960c;
+  --n-paper:#f8f5f0;
+  --n-white:#ffffff;
+  --n-shadow:0 10px 30px rgba(26,26,46,.09);
+  --n-shadow-sm:0 4px 16px rgba(26,26,46,.07);
+  --n-radius:16px;
+}
+
+html{scroll-behavior:smooth}
+body{
+  font-size:16px;
+  line-height:1.55;
+  -webkit-tap-highlight-color:transparent;
+  text-rendering:optimizeLegibility;
+  overscroll-behavior-x:none;
+}
+body::selection{background:rgba(201,150,12,.25)}
+
+button,input,select{font:inherit}
+button{touch-action:manipulation}
+button:focus-visible,input:focus-visible,select:focus-visible,.mode-card:focus-visible{
+  outline:3px solid rgba(15,76,129,.28);
+  outline-offset:2px;
+}
+
+header{
+  padding-top:max(14px,env(safe-area-inset-top,0px));
+  box-shadow:0 5px 24px rgba(0,0,0,.16);
+  backdrop-filter:blur(12px) saturate(1.1);
+}
+.header-inner{padding-left:2px;padding-right:2px}
+.logo{letter-spacing:-.35px}
+.logo span{display:inline-block;transform:translateY(-1px)}
+.score-pill{
+  min-height:38px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:7px 13px;
+  box-shadow:0 4px 12px rgba(201,150,12,.18);
+}
+
+nav{position:sticky;top:0;z-index:90;box-shadow:0 2px 12px rgba(0,0,0,.12)}
+.nav-inner{gap:5px;padding-left:12px;padding-right:12px}
+.tab{
+  min-height:48px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:10px 14px;
+  border-bottom-width:3px;
+  font-weight:700;
+  transition:color .2s ease,background .2s ease,border-color .2s ease,transform .15s ease;
+}
+.tab:active{transform:scale(.97)}
+.tab.active{background:rgba(201,150,12,.07)}
+
+main{max-width:920px;padding:24px 16px 40px}
+.screen.active{animation:nuriaFadeIn .22s ease both}
+@keyframes nuriaFadeIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+
+.home-hero{
+  min-height:220px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  background:
+    radial-gradient(circle at 90% 20%,rgba(201,150,12,.18),transparent 30%),
+    linear-gradient(135deg,#1a1a2e 0%,#202a48 100%);
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:20px;
+  padding:30px 24px;
+  margin-bottom:18px;
+  box-shadow:var(--n-shadow);
+}
+.home-hero::before{
+  content:'NÚRIA · ESTUDO 2.0';
+  position:absolute;
+  top:15px;
+  right:18px;
+  font-size:.58rem;
+  font-weight:800;
+  letter-spacing:1.2px;
+  color:rgba(255,255,255,.42);
+}
+.home-hero h1{font-size:clamp(1.8rem,7vw,2.45rem);letter-spacing:-.6px}
+.home-hero p{font-size:.9rem;max-width:620px}
+.home-hero .authors{color:#aaa;font-weight:500}
+
+.stats-row{gap:12px}
+.stat-card{
+  position:relative;
+  overflow:hidden;
+  min-height:92px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  border-radius:14px;
+  box-shadow:var(--n-shadow-sm);
+  transition:transform .18s ease,box-shadow .18s ease;
+}
+.stat-card::before{
+  content:'';
+  position:absolute;left:0;right:0;top:0;height:3px;background:var(--gold);
+}
+.stat-card:hover{transform:translateY(-2px);box-shadow:var(--n-shadow)}
+.stat-num{font-size:2rem}
+
+.section-title{font-size:1.25rem;letter-spacing:-.2px;margin-top:8px}
+.modes-grid{gap:12px}
+.mode-card{
+  position:relative;
+  min-height:145px;
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:18px;
+  box-shadow:var(--n-shadow-sm);
+  overflow:hidden;
+  transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;
+}
+.mode-card::after{
+  content:'›';
+  position:absolute;
+  right:15px;
+  bottom:13px;
+  font-size:1.25rem;
+  color:var(--muted);
+  transition:transform .18s ease,color .18s ease;
+}
+.mode-card:hover{transform:translateY(-3px);box-shadow:var(--n-shadow);border-color:rgba(15,76,129,.45)}
+.mode-card:hover::after{transform:translateX(4px);color:var(--accent)}
+.mode-icon{
+  width:48px;height:48px;
+  display:flex;align-items:center;justify-content:center;
+  border-radius:14px;
+  background:rgba(15,76,129,.09);
+  margin-bottom:11px;
+}
+.mode-title{font-size:1rem;letter-spacing:-.15px}
+.mode-desc{max-width:92%;line-height:1.48}
+
+.question-card,.board-q-card,.results-card,.study-card,.study-info{
+  box-shadow:var(--n-shadow-sm);
+}
+.question-card{border-radius:16px;padding:22px}
+.question-text{font-size:1.04rem;letter-spacing:-.1px}
+.option-btn{
+  min-height:54px;
+  border-radius:13px;
+  padding:13px 14px;
+  box-shadow:0 1px 0 rgba(0,0,0,.02);
+}
+.option-btn:hover:not(:disabled){transform:translateY(-1px)}
+.option-letter{width:30px;height:30px}
+.feedback-box{border-radius:13px}
+
+.btn{
+  min-height:46px;
+  border-radius:11px;
+  padding:11px 18px;
+  box-shadow:0 2px 7px rgba(0,0,0,.06);
+}
+.btn:active{transform:scale(.98)}
+
+.cat-grid{gap:12px}
+.cat-btn{
+  min-height:76px;
+  border-radius:14px;
+  padding:15px;
+  box-shadow:0 5px 14px rgba(0,0,0,.08);
+}
+.cat-btn:hover{box-shadow:0 8px 20px rgba(0,0,0,.12)}
+
+.fc-controls{gap:12px}
+.fc-filter select,.fc-search input,.search-input,
+#studyCatFilter,#studySearch{
+  min-height:46px;
+  border-radius:11px!important;
+  background:var(--card-bg)!important;
+  color:var(--ink)!important;
+}
+.card-scene{height:245px}
+.card-face{border-radius:18px;box-shadow:var(--n-shadow)}
+.card-front{background:linear-gradient(145deg,#1a1a2e,#263a61)}
+.fc-nav button{width:46px;height:46px;border-radius:14px;background:var(--card-bg);box-shadow:var(--n-shadow-sm)}
+.known-btns button{min-height:46px;border-radius:11px}
+
+.results-card{border-radius:18px;box-shadow:var(--n-shadow)}
+.result-emoji{filter:drop-shadow(0 4px 8px rgba(0,0,0,.08))}
+
+.study-card{
+  border:1px solid var(--border);
+  border-radius:14px;
+  overflow:hidden;
+  background:var(--card-bg);
+  margin-bottom:10px;
+}
+.study-q{min-height:64px;padding:14px 16px;transition:background .18s ease}
+.study-q:hover{background:rgba(15,76,129,.045)}
+.study-a{padding:0 16px 16px}
+
+.board-q-card{border-radius:16px}
+.dice-btn{box-shadow:var(--n-shadow-sm);background:var(--card-bg)}
+
+.ai-shuffle-info{
+  border-radius:12px;
+  box-shadow:0 2px 10px rgba(15,76,129,.06);
+}
+
+/* Evita zoom acidental em campos no iPhone/Android e mantém leitura confortável. */
+input,select{font-size:16px!important}
+
+/* Melhor utilização em ecrãs pequenos */
+@media (max-width:640px){
+  header{padding-left:12px;padding-right:12px}
+  .header-inner{align-items:flex-start}
+  .subtitle{max-width:230px;line-height:1.35}
+  .score-pill{font-size:.75rem;padding:6px 10px;min-height:34px}
+  .nav-inner{overflow-x:auto;justify-content:flex-start}
+  .tab{padding:10px 13px;font-size:.77rem}
+  main{padding:18px 12px 32px}
+  .home-hero{min-height:205px;padding:25px 20px;border-radius:18px}
+  .home-hero::before{display:none}
+  .stats-row{gap:8px}
+  .stat-card{padding:12px 7px;min-height:84px}
+  .stat-num{font-size:1.65rem}
+  .stat-label{font-size:.66rem}
+  .modes-grid{grid-template-columns:1fr 1fr;gap:9px}
+  .mode-card{min-height:155px;padding:15px}
+  .mode-icon{width:42px;height:42px;font-size:1.55rem}
+  .mode-title{font-size:.9rem}
+  .mode-desc{font-size:.72rem}
+  .question-card{padding:18px}
+  .question-text{font-size:.98rem}
+  .cat-grid{grid-template-columns:1fr}
+  .cat-btn.all{grid-column:1}
+  .card-scene{height:270px}
+}
+
+@media (max-width:400px){
+  .modes-grid{grid-template-columns:1fr}
+  .mode-card{min-height:125px}
+  .stats-row{grid-template-columns:repeat(3,1fr)}
+  .home-hero h1{font-size:1.75rem}
+  .home-hero p{font-size:.82rem}
+}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+}
+
+
+.progress-mini-card{background:linear-gradient(135deg,#fff,#f3eee6);border:1px solid var(--border);border-radius:18px;padding:16px;margin:16px 0 22px;box-shadow:0 10px 26px rgba(26,26,46,.07)}
+.progress-mini-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.progress-mini-title{font-weight:800;color:var(--ink);font-size:.98rem}
+.progress-mini-sub{font-size:.76rem;color:var(--muted);margin-top:3px}
+.progress-mini-head>strong{font-size:1.05rem;color:var(--accent)}
+.progress-mini-card .progress-bar{margin-top:12px;height:9px}
+.progress-mini-foot{display:flex;justify-content:space-between;gap:10px;margin-top:10px;font-size:.76rem;color:var(--muted)}
+.progress-mini-foot b{color:var(--ink)}
+.option-btn,.mode-card,.cat-btn,.btn,.tab{transition:transform .18s ease,box-shadow .18s ease,background-color .18s ease,border-color .18s ease}
+.option-btn:active,.mode-card:active,.cat-btn:active,.btn:active{transform:scale(.98)}
+
+
+/* NÚRIA 2.4 — UX de estudo */
+.quiz-header{position:relative}
+.quiz-header::after{
+  content:'Escolhe uma resposta para continuar';
+  position:absolute;left:0;top:100%;margin-top:4px;
+  font-size:.68rem;color:var(--muted);opacity:.75;
+}
+#qProgress{transition:width .35s ease}
+.option-btn{position:relative;overflow:hidden}
+.option-btn.correct::before,.option-btn.wrong::before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+}
+.option-btn.correct::before{background:rgba(26,107,60,.045)}
+.option-btn.wrong::before{background:rgba(192,57,43,.045)}
+.feedback-box strong{font-weight:800}
+
+/* Flashcards: estado de estudo mais claro */
+.fc-counter{font-weight:700}
+.fc-nav{margin-top:10px}
+.known-btns button{box-shadow:0 3px 10px rgba(0,0,0,.05)}
+#fcKnownBtns{animation:nuriaFadeIn .2s ease both}
+
+/* Estudo: leitura mais confortável */
+.study-a strong{color:var(--ink)}
+.study-card .study-q{cursor:pointer}
+.study-q .sq-arrow{
+  color:var(--accent);font-size:1rem;font-weight:800;transition:transform .2s ease;
+}
+.study-q.open .sq-arrow{transform:rotate(90deg)}
+
+/* Pequeno indicador de estado na home */
+.progress-mini-card .progress-fill{background:linear-gradient(90deg,var(--accent),var(--gold))}
+
+/* Touch */
+@media(max-width:640px){
+  .option-btn{padding:14px 13px}
+  .btn-row .btn{flex:1;min-width:130px}
+  .fc-controls{align-items:stretch}
+  .fc-filter,.fc-filter select{width:100%}
+  .fc-counter{width:100%;text-align:right}
+}
+
+
+/* NÚRIA 3.0 — PROGRESSO */
+.progress-hero{display:flex;justify-content:space-between;align-items:center;gap:18px;background:linear-gradient(135deg,var(--ink),var(--blue));color:#fff;border-radius:18px;padding:22px;margin-bottom:16px;box-shadow:var(--shadow-soft)}
+.progress-hero .section-title{color:#f3d27a}.progress-hero h2{font-size:1.25rem}.progress-hero .muted{color:rgba(255,255,255,.75);margin:0;font-size:.82rem}.progress-big{font-size:2.1rem;font-weight:900;color:#f3d27a;white-space:nowrap}
+.progress-main-card,.progress-panel{background:var(--card-bg);border:1px solid var(--border);border-radius:16px;padding:18px;margin-bottom:14px;box-shadow:var(--shadow-card)}
+.progress-main-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px}.progress-main-head strong{font-size:1.35rem;color:var(--ink)}.progress-main-head span{font-size:.78rem;color:var(--muted)}.progress-bar-large{height:12px;margin:13px 0}.progress-main-foot{display:flex;justify-content:space-between;color:var(--muted);font-size:.78rem}.progress-stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}.progress-stat{background:var(--card-bg);border:1px solid var(--border);border-radius:14px;padding:14px;text-align:center;box-shadow:var(--shadow-card)}.progress-stat span{display:block;font-size:1.2rem}.progress-stat strong{display:block;font-size:1.25rem;color:var(--ink);margin:3px 0}.progress-stat small{color:var(--muted);font-size:.68rem}.progress-panel-title{font-weight:800;margin-bottom:12px;color:var(--ink)}.cat-progress{margin:11px 0}.cat-progress-head{display:flex;justify-content:space-between;gap:10px;font-size:.78rem;margin-bottom:5px}.cat-progress-head strong{color:var(--ink)}.cat-progress-track{height:8px;border-radius:99px;background:#e8e4dc;overflow:hidden}.cat-progress-fill{height:100%;border-radius:99px;transition:width .45s ease}.progress-summary-row{display:flex;justify-content:space-between;gap:15px;padding:9px 0;border-bottom:1px solid var(--border);font-size:.82rem}.progress-summary-row:last-child{border-bottom:0}.progress-summary-row strong{color:var(--ink)}.progress-reset{width:100%;margin-top:2px}.progress-note{text-align:center;color:var(--muted);font-size:.68rem;margin:9px 10px 0}.tab{white-space:nowrap}@media(max-width:700px){.progress-stats-grid{grid-template-columns:repeat(2,1fr)}.progress-hero{padding:18px}.progress-big{font-size:1.7rem}}@media(max-width:430px){.nav-inner{overflow-x:auto;justify-content:flex-start}.tab{flex:0 0 auto}.progress-hero{align-items:flex-start}.progress-main-head{align-items:flex-start;flex-direction:column;gap:2px}}
 </style>
 </head>
 <body>
@@ -535,6 +857,7 @@ input::placeholder{color:var(--muted);opacity:1}
     <div class="tab" onclick="goTab('flash')">🃏 Flashcards</div>
     <div class="tab" onclick="goTab('board')">🎲 Tabuleiro</div>
     <div class="tab" onclick="goTab('study')">📚 Estudo</div>
+    <div class="tab" onclick="goTab('progress')">📈 Progresso</div>
   </div>
 </nav>
 <main>
@@ -547,11 +870,27 @@ input::placeholder{color:var(--muted);opacity:1}
     <div class="authors">Celina Sónia Chimbinda · Núria de Lourdes Saraiva Baltazar</div>
   </div>
   <div class="stats-row">
-    <div class="stat-card"><div class="stat-num">120</div><div class="stat-label">Perguntas</div></div>
+    <div class="stat-card"><div class="stat-num" id="homeQuestionCount">0</div><div class="stat-label">Perguntas</div></div>
     <div class="stat-card"><div class="stat-num">6</div><div class="stat-label">Categorias</div></div>
     <div class="stat-card"><div class="stat-num" id="homeProgress">0%</div><div class="stat-label">Progresso</div></div>
   </div>
-  <p class="section-title">Escolhe um modo de estudo</p>
+  
+<div class="progress-mini-card">
+  <div class="progress-mini-head">
+    <div>
+      <div class="progress-mini-title">O teu progresso</div>
+      <div class="progress-mini-sub">Perguntas marcadas nos Flashcards</div>
+    </div>
+    <strong id="homeProgressDetail">0 / 0</strong>
+  </div>
+  <div class="progress-bar"><div class="progress-fill" id="homeProgressBar" style="width:0%"></div></div>
+  <div class="progress-mini-foot">
+    <span>✅ Já sei: <b id="homeKnown">0</b></span>
+    <span>😕 A rever: <b id="homeUnknown">0</b></span>
+  </div>
+</div>
+
+<p class="section-title">Escolhe um modo de estudo</p>
   <div class="modes-grid">
     <div class="mode-card" onclick="goTab('quiz')">
       <div class="mode-icon">🎯</div>
@@ -582,18 +921,18 @@ input::placeholder{color:var(--muted);opacity:1}
     <p class="section-title">🎯 Escolhe a Categoria</p>
     <div class="ai-shuffle-info">✨ A IA vai embaralhar as perguntas de forma inteligente — nunca na mesma ordem!</div>
     <div class="cat-grid">
-      <button class="cat-btn all" onclick="startQuiz('all')">🌐 Todas as Categorias<div class="cat-count">120 perguntas</div></button>
-      <button class="cat-btn cat1" onclick="startQuiz(0)">📘 Introdução & Metodologia<div class="cat-count">20 perguntas</div></button>
-      <button class="cat-btn cat2" onclick="startQuiz(1)">📗 Fundamentação Teórica<div class="cat-count">30 perguntas</div></button>
-      <button class="cat-btn cat3" onclick="startQuiz(2)">📙 Jornal de Angola<div class="cat-count">35 perguntas</div></button>
-      <button class="cat-btn cat4" onclick="startQuiz(3)">📓 Dados & Entrevistas<div class="cat-count">22 perguntas</div></button>
-      <button class="cat-btn cat5" onclick="startQuiz(4)">📒 Conclusão & Sugestões<div class="cat-count">6 perguntas</div></button>
-      <button class="cat-btn cat6" onclick="startQuiz(5)">📕 Interpretação & Análise<div class="cat-count">7 perguntas</div></button>
+      <button class="cat-btn all" onclick="startQuiz('all')">🌐 Todas as Categorias<div class="cat-count" data-cat-count="all">0 perguntas</div></button>
+      <button class="cat-btn cat1" onclick="startQuiz(0)">📘 Introdução & Metodologia<div class="cat-count" data-cat-count="0">0 perguntas</div></button>
+      <button class="cat-btn cat2" onclick="startQuiz(1)">📗 Fundamentação Teórica<div class="cat-count" data-cat-count="1">0 perguntas</div></button>
+      <button class="cat-btn cat3" onclick="startQuiz(2)">📙 Jornal de Angola<div class="cat-count" data-cat-count="2">0 perguntas</div></button>
+      <button class="cat-btn cat4" onclick="startQuiz(3)">📓 Dados & Entrevistas<div class="cat-count" data-cat-count="3">0 perguntas</div></button>
+      <button class="cat-btn cat5" onclick="startQuiz(4)">📒 Conclusão & Sugestões<div class="cat-count" data-cat-count="4">0 perguntas</div></button>
+      <button class="cat-btn cat6" onclick="startQuiz(5)">📕 Interpretação & Análise<div class="cat-count" data-cat-count="5">0 perguntas</div></button>
     </div>
   </div>
   <div id="quiz-play" style="display:none">
     <div class="quiz-header">
-      <div class="quiz-meta">Pergunta <strong id="qNum">1</strong> de <span id="qTotal">20</span></div>
+      <div class="quiz-meta">Pergunta <strong id="qNum">1</strong> de <span id="qTotal">0</span></div>
       <div class="quiz-meta">✅ <strong id="qScore">0</strong> | ❌ <strong id="qWrong">0</strong></div>
     </div>
     <div class="progress-bar"><div class="progress-fill" id="qProgress" style="width:0%"></div></div>
@@ -606,7 +945,7 @@ input::placeholder{color:var(--muted);opacity:1}
     <div class="ai-hint-box" id="aiHint"><div class="ai-label">💡 DICA DA IA</div><div id="aiHintText"></div></div>
     <div class="feedback-box" id="qFeedback"></div>
     <div class="btn-row" style="margin-top:8px">
-      <button class="btn btn-primary" id="qNextBtn" onclick="nextQuestion()" style="display:none">Próxima →</button>
+      <button class="btn btn-gold" id="qNextBtn" onclick="nextQuestion()" style="display:none">Próxima →</button>
       <button class="btn btn-outline" id="qHintBtn" onclick="showAiHint()" style="font-size:0.8rem">💡 Dica</button>
     </div>
   </div>
@@ -614,7 +953,7 @@ input::placeholder{color:var(--muted);opacity:1}
     <div class="results-card">
       <div class="result-emoji" id="resEmoji">🏆</div>
       <div class="result-title" id="resTitle">Excelente!</div>
-      <div class="result-score" id="resScore"></div>
+      <div class="result-score" id="resScore"></div><div id="resStudyNote" style="font-size:.78rem;color:var(--muted);margin:-8px 0 18px">Podes repetir o quiz ou mudar de categoria.</div>
       <div class="result-breakdown">
         <div class="result-item"><div class="ri-label">Corretas</div><div class="ri-val" id="resCorrect" style="color:var(--green)"></div></div>
         <div class="result-item"><div class="ri-label">Erradas</div><div class="ri-val" id="resWrong" style="color:var(--red)"></div></div>
@@ -643,7 +982,7 @@ input::placeholder{color:var(--muted);opacity:1}
         <option value="5">Interpretação & Análise</option>
       </select>
     </div>
-    <div class="fc-counter" id="fcCounter">1 / 120</div>
+    <div class="fc-counter" id="fcCounter">1 / 0</div>
   </div>
   <div class="card-scene">
     <div class="card-3d" id="fcCard" onclick="flipCard()">
@@ -664,7 +1003,7 @@ input::placeholder{color:var(--muted);opacity:1}
   </div>
   <div class="fc-nav">
     <button onclick="fcMove(-1)">←</button>
-    <span class="fc-pos" id="fcPos">1 / 120</span>
+    <span class="fc-pos" id="fcPos">1 / 0</span>
     <button onclick="fcMove(1)">→</button>
   </div>
   <div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap">
@@ -721,6 +1060,47 @@ input::placeholder{color:var(--muted);opacity:1}
     <input type="text" id="studySearch" placeholder="🔍 Pesquisar..." oninput="studyFilter()" style="padding:8px 11px;border:2px solid var(--border);border-radius:8px;font-family:Inter,sans-serif;font-size:0.82rem;flex:1;min-width:140px">
   </div>
   <div id="studyList"></div>
+</div>
+
+
+<!-- PROGRESSO -->
+<div class="screen" id="screen-progress">
+  <div class="progress-hero">
+    <div>
+      <p class="section-title" style="margin-bottom:4px">📈 O teu progresso</p>
+      <h2 style="margin:0 0 6px">Acompanha a tua preparação</h2>
+      <p class="muted">Os dados são guardados neste dispositivo.</p>
+    </div>
+    <div class="progress-big" id="progressPercent">0%</div>
+  </div>
+
+  <div class="progress-main-card">
+    <div class="progress-main-head"><strong id="progressStudied">0 / 0</strong><span>Perguntas estudadas</span></div>
+    <div class="progress-bar progress-bar-large"><div class="progress-fill" id="progressBar" style="width:0%"></div></div>
+    <div class="progress-main-foot"><span>📚 Estudadas</span><strong id="progressStudiedText">0</strong></div>
+  </div>
+
+  <div class="progress-stats-grid">
+    <div class="progress-stat"><span>🎯</span><strong id="progressQuizCorrect">0</strong><small>Acertos no Quiz</small></div>
+    <div class="progress-stat"><span>❌</span><strong id="progressQuizWrong">0</strong><small>Erros no Quiz</small></div>
+    <div class="progress-stat"><span>✅</span><strong id="progressKnown">0</strong><small>Já sei</small></div>
+    <div class="progress-stat"><span>🔁</span><strong id="progressUnknown">0</strong><small>A rever</small></div>
+  </div>
+
+  <div class="progress-panel">
+    <div class="progress-panel-title">Desempenho por categoria</div>
+    <div id="categoryProgressList"></div>
+  </div>
+
+  <div class="progress-panel">
+    <div class="progress-panel-title">Resumo</div>
+    <div class="progress-summary-row"><span>⭐ Pontos totais</span><strong id="progressPoints">0 pts</strong></div>
+    <div class="progress-summary-row"><span>📖 Perguntas para rever</span><strong id="progressReviewCount">0</strong></div>
+    <div class="progress-summary-row"><span>🏆 Precisão do Quiz</span><strong id="progressAccuracy">0%</strong></div>
+  </div>
+
+  <button class="btn btn-outline progress-reset" onclick="resetAllProgress()">↺ Reiniciar todo o progresso</button>
+  <p class="progress-note">Isto apaga apenas o progresso guardado neste navegador. As perguntas permanecem no aplicativo.</p>
 </div>
 
 </main>
@@ -882,6 +1262,9 @@ let fcIdx = 0;
 let fcFlipped = false;
 let fcKnown = new Set();
 let fcUnknown = new Set();
+let quizCorrectKeys = new Set();
+let quizWrongKeys = new Set();
+let studyOpenedKeys = new Set();
 let boardPlayers = [];
 let boardCurrent = 0;
 let boardDiced = false;
@@ -892,13 +1275,16 @@ const TOKENS = ['🔴','🔵','🟢','🟡'];
 // =====================================
 // PERSISTÊNCIA LOCAL — progresso no próprio dispositivo
 // =====================================
-const STORAGE_KEY = 'nuria-estudo-progress-v2';
+const STORAGE_KEY = 'nuria-estudo-progress-v3';
 function saveProgress(){
   try{
     localStorage.setItem(STORAGE_KEY, JSON.stringify({
       totalPoints,
       fcKnown:[...fcKnown],
-      fcUnknown:[...fcUnknown]
+      fcUnknown:[...fcUnknown],
+      quizCorrectKeys:[...quizCorrectKeys],
+      quizWrongKeys:[...quizWrongKeys],
+      studyOpenedKeys:[...studyOpenedKeys]
     }));
   }catch(e){}
 }
@@ -910,8 +1296,13 @@ function loadProgress(){
     if(Number.isFinite(data.totalPoints)) totalPoints=Math.max(0,data.totalPoints);
     if(Array.isArray(data.fcKnown)) fcKnown=new Set(data.fcKnown);
     if(Array.isArray(data.fcUnknown)) fcUnknown=new Set(data.fcUnknown);
+    if(Array.isArray(data.quizCorrectKeys)) quizCorrectKeys=new Set(data.quizCorrectKeys);
+    if(Array.isArray(data.quizWrongKeys)) quizWrongKeys=new Set(data.quizWrongKeys);
+    if(Array.isArray(data.studyOpenedKeys)) studyOpenedKeys=new Set(data.studyOpenedKeys);
   }catch(e){}
 }
+function questionKey(q){ return q.cat + '_' + q.q; }
+
 
 
 // =====================================
@@ -946,15 +1337,16 @@ function getAiHint(q) {
 function goTab(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-  document.getElementById('screen-' + id).classList.add('active');
+  const target=document.getElementById('screen-' + id);
+  if(target) target.classList.add('active');
+  const labels={home:'início',quiz:'quiz',flash:'flash',board:'tabuleiro',study:'estudo',progress:'progresso'};
   document.querySelectorAll('.tab').forEach(t => {
-    if (t.textContent.toLowerCase().includes(id === 'home' ? 'início' : id === 'quiz' ? 'quiz' : id === 'flash' ? 'flash' : id === 'board' ? 'tabuleiro' : 'estudo')) {
-      t.classList.add('active');
-    }
+    if(t.textContent.toLowerCase().includes(labels[id] || id)) t.classList.add('active');
   });
-  if (id === 'flash') { fcFilter(); }
-  if (id === 'study') { studyFilter(); }
-  if (id === 'home') { updateHomeStats(); }
+  if(id === 'flash') fcFilter();
+  if(id === 'study') studyFilter();
+  if(id === 'progress') updateProgressScreen();
+  if(id === 'home') updateHomeStats();
 }
 
 // =====================================
@@ -1018,13 +1410,18 @@ function selectAnswer(idx, correct, explanation, btn) {
   quizAnswered = true;
   const btns = document.querySelectorAll('#qOptions .option-btn');
   btns.forEach(b => b.disabled = true);
+  const answeredKey = questionKey(quizPool[quizIdx]);
   if (correct) {
     btn.classList.add('correct');
+    quizCorrectKeys.add(answeredKey);
+    quizWrongKeys.delete(answeredKey);
     quizCorrect++;
     totalPoints += 10;
     document.getElementById('qScore').textContent = quizCorrect;
   } else {
     btn.classList.add('wrong');
+    quizWrongKeys.add(answeredKey);
+    quizCorrectKeys.delete(answeredKey);
     quizWrong++;
     document.getElementById('qWrong').textContent = quizWrong;
     // Mostrar claramente a resposta correta
@@ -1039,6 +1436,8 @@ function selectAnswer(idx, correct, explanation, btn) {
   document.getElementById('aiHint').className = 'ai-hint-box';
   document.getElementById('qHintBtn').style.display = 'none';
   document.getElementById('qNextBtn').style.display = '';
+  saveProgress();
+  updateProgressScreen();
 }
 
 function showAiHint() {
@@ -1123,7 +1522,7 @@ function fcMove(dir) {
 
 function markCard(known) {
   const q = fcPool[fcIdx];
-  const key = q.cat + '_' + q.q.substring(0, 20);
+  const key = questionKey(q);
   if (known) { fcKnown.add(key); fcUnknown.delete(key); totalPoints += 2; }
   else { fcUnknown.add(key); fcKnown.delete(key); }
   saveProgress();
@@ -1142,7 +1541,7 @@ function fcShuffle() {
 
 function fcShowUnknown() {
   if (!fcUnknown.size) return;
-  fcPool = aiShuffle(QUESTIONS.filter(q => fcUnknown.has(q.cat + '_' + q.q.substring(0, 20))));
+  fcPool = aiShuffle(QUESTIONS.filter(q => fcUnknown.has(questionKey(q))));
   fcIdx = 0; fcFlipped = false;
   document.getElementById('fcCard').classList.remove('flipped');
   document.getElementById('fcKnownBtns').style.display = 'none';
@@ -1168,6 +1567,7 @@ function studyFilter() {
   if (search) pool = pool.filter(q => q.q.toLowerCase().includes(search) || q.opts[q.ans].toLowerCase().includes(search));
   const container = document.getElementById('studyList');
   container.innerHTML = '';
+  window.__studyQuestionMap = new WeakMap();
   pool.forEach((q, i) => {
     const div = document.createElement('div');
     div.className = 'study-card';
@@ -1185,6 +1585,7 @@ function studyFilter() {
       </div>
     `;
     container.appendChild(div);
+    window.__studyQuestionMap.set(div.querySelector('.study-q'), q);
   });
   if (!pool.length) container.innerHTML = '<div style="text-align:center;padding:30px;color:var(--muted)">Nenhuma pergunta encontrada</div>';
 }
@@ -1194,7 +1595,7 @@ function toggleStudy(btn) {
   const icon = btn.querySelector('span:last-child');
   const open = ans.classList.toggle('open');
   icon.textContent = open ? '⌄' : '›';
-  if (open) { totalPoints += 1; updateGlobalScore(); }
+  if (open) { const q=window.__studyQuestionMap && window.__studyQuestionMap.get(btn); if(q) studyOpenedKeys.add(questionKey(q)); totalPoints += 1; updateGlobalScore(); saveProgress(); updateProgressScreen(); }
 }
 
 // =====================================
@@ -1344,7 +1745,7 @@ function updateGlobalScore() {
 
 
 function updateHomeStats() {
-  const studied = new Set([...fcKnown, ...fcUnknown]);
+  const studied = new Set([...fcKnown, ...fcUnknown, ...quizCorrectKeys, ...quizWrongKeys, ...studyOpenedKeys]);
   const pct = Math.round((studied.size / QUESTIONS.length) * 100);
   const el=document.getElementById('homeProgress');
   if(el) el.textContent = pct + '%';
@@ -1354,6 +1755,85 @@ function updateHomeStats() {
   if(known) known.textContent=fcKnown.size;
   if(unknown) unknown.textContent=fcUnknown.size;
   if(unknown2) unknown2.textContent=fcUnknown.size;
+  updateHomeProgressCard();
+  updateQuestionCounts();
+}
+
+
+// =====================================
+// PROGRESSO 3.0
+// =====================================
+function updateProgressScreen(){
+  const studied=new Set([...fcKnown,...fcUnknown,...quizCorrectKeys,...quizWrongKeys,...studyOpenedKeys]);
+  const total=QUESTIONS.length || 1;
+  const pct=Math.min(100,Math.round(studied.size/total*100));
+  const accuracyTotal=quizCorrectKeys.size+quizWrongKeys.size;
+  const accuracy=accuracyTotal?Math.round(quizCorrectKeys.size/accuracyTotal*100):0;
+  const setText=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v;};
+  setText('progressPercent',pct+'%');
+  setText('progressStudied',studied.size+' / '+QUESTIONS.length);
+  setText('progressStudiedText',studied.size);
+  setText('progressQuizCorrect',quizCorrectKeys.size);
+  setText('progressQuizWrong',quizWrongKeys.size);
+  setText('progressKnown',fcKnown.size);
+  setText('progressUnknown',fcUnknown.size);
+  setText('progressPoints',totalPoints+' pts');
+  setText('progressReviewCount',fcUnknown.size+quizWrongKeys.size);
+  setText('progressAccuracy',accuracy+'%');
+  const bar=document.getElementById('progressBar'); if(bar) bar.style.width=pct+'%';
+  const list=document.getElementById('categoryProgressList');
+  if(!list) return;
+  list.innerHTML=CATS.map((cat,i)=>{
+    const qs=QUESTIONS.filter(q=>q.cat===i);
+    const keys=new Set(qs.map(questionKey));
+    let done=0,correct=0,wrong=0;
+    qs.forEach(q=>{const k=questionKey(q);if(studied.has(k))done++;if(quizCorrectKeys.has(k))correct++;if(quizWrongKeys.has(k))wrong++;});
+    const p=qs.length?Math.round(done/qs.length*100):0;
+    return `<div class="cat-progress"><div class="cat-progress-head"><span>${cat.name}</span><strong>${done}/${qs.length} · ${p}%</strong></div><div class="cat-progress-track"><div class="cat-progress-fill" style="width:${p}%;background:${cat.color}"></div></div><div style="font-size:.66rem;color:var(--muted);margin-top:3px">🎯 ${correct} acertos · ❌ ${wrong} erros</div></div>`;
+  }).join('');
+}
+function resetAllProgress(){
+  if(!confirm('Reiniciar todo o progresso deste dispositivo?')) return;
+  totalPoints=0; fcKnown.clear(); fcUnknown.clear(); quizCorrectKeys.clear(); quizWrongKeys.clear(); studyOpenedKeys.clear();
+  try{localStorage.removeItem(STORAGE_KEY); localStorage.removeItem('nuria-estudo-progress-v2');}catch(e){}
+  quizCorrect=0; quizWrong=0;
+  updateGlobalScore(); updateHomeStats(); updateProgressScreen();
+}
+
+// =====================================
+// UI DINÂMICA — contagens reais do ficheiro
+// =====================================
+function updateQuestionCounts(){
+  const total = QUESTIONS.length;
+  const homeCount = document.getElementById('homeQuestionCount');
+  if(homeCount) homeCount.textContent = total;
+
+  document.querySelectorAll('[data-cat-count]').forEach(el=>{
+    const key = el.getAttribute('data-cat-count');
+    const n = key === 'all'
+      ? total
+      : QUESTIONS.filter(q=>q.cat === Number(key)).length;
+    el.textContent = n;
+  });
+
+  const fcCounter = document.getElementById('fcCounter');
+  const fcPos = document.getElementById('fcPos');
+  if(fcCounter && fcPool.length) fcCounter.textContent = (fcIdx + 1) + ' / ' + fcPool.length;
+  if(fcPos && fcPool.length) fcPos.textContent = (fcIdx + 1) + ' / ' + fcPool.length;
+}
+
+function updateHomeProgressCard(){
+  const total = QUESTIONS.length || 1;
+  const studied = new Set([...fcKnown, ...fcUnknown]).size;
+  const pct = Math.min(100, Math.round((studied / total) * 100));
+  const detail = document.getElementById('homeProgressDetail');
+  const bar = document.getElementById('homeProgressBar');
+  const known = document.getElementById('homeKnown');
+  const unknown = document.getElementById('homeUnknown');
+  if(detail) detail.textContent = studied + ' / ' + QUESTIONS.length;
+  if(bar) bar.style.width = pct + '%';
+  if(known) known.textContent = fcKnown.size;
+  if(unknown) unknown.textContent = fcUnknown.size;
 }
 
 // =====================================
@@ -1361,9 +1841,28 @@ function updateHomeStats() {
 // =====================================
 loadProgress();
 updateGlobalScore();
+updateQuestionCounts();
 updateHomeStats();
+updateProgressScreen();
 fcFilter();
 studyFilter();
 </script>
+
+<script>
+/* NÚRIA 2.4 — micro-UX */
+(function(){
+  const oldFcUpdate = window.fcUpdate;
+  if (typeof oldFcUpdate === 'function') {
+    window.fcUpdate = function(){
+      oldFcUpdate.apply(this, arguments);
+      const c = document.getElementById('fcCounter');
+      if (c && window.fcIndex !== undefined && window.fcPool) {
+        c.title = 'Cartão atual';
+      }
+    };
+  }
+})();
+</script>
+
 </body>
 </html>

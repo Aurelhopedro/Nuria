@@ -449,6 +449,73 @@ main { max-width: 860px; margin: 0 auto; padding: 20px 16px; }
   border-radius: 8px; padding: 10px 14px;
   font-size: 0.78rem; color: #2a4a8a; margin-bottom: 14px;
 }
+
+/* =====================================
+   NÚRIA 2.0 — VISUAL / UX POLISH
+   ===================================== */
+:root{
+  --shadow-soft:0 8px 28px rgba(26,26,46,.08);
+  --shadow-card:0 4px 18px rgba(26,26,46,.07);
+  --focus-ring:0 0 0 4px rgba(15,76,129,.16);
+}
+html{scroll-behavior:smooth}
+body{font-size:16px;line-height:1.55;-webkit-tap-highlight-color:transparent}
+button,input,select{min-height:44px}
+button{touch-action:manipulation}
+header{box-shadow:0 3px 18px rgba(0,0,0,.14);backdrop-filter:saturate(1.08)}
+.nav-inner{gap:4px}
+.tab{min-height:48px;padding:13px 14px;font-weight:700;transition:background .2s,color .2s,transform .2s}
+.tab:active{transform:scale(.97)}
+main{max-width:900px;padding-left:18px;padding-right:18px}
+.screen{animation:screenIn .24s ease both}
+@keyframes screenIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+.home-hero{box-shadow:var(--shadow-card);border:1px solid rgba(221,216,208,.8)}
+.stat-card,.mode-card,.question-card,.board-q-card,.results-card{box-shadow:var(--shadow-card);transition:transform .2s,box-shadow .2s,border-color .2s}
+.stat-card:hover,.mode-card:hover,.question-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-soft)}
+.mode-card{cursor:pointer;min-height:140px;padding:20px}
+.mode-icon{width:46px;height:46px;display:grid;place-items:center;border-radius:14px;background:#f0f4fa;font-size:1.45rem;margin-bottom:10px}
+.mode-title{font-size:1rem;font-weight:800}
+.mode-desc{line-height:1.45}
+.section-title{letter-spacing:-.01em}
+.cat-btn,.btn,.option-btn,.dice-btn,.fc-nav button{transition:transform .16s,box-shadow .16s,filter .16s}
+.cat-btn:active,.btn:active,.option-btn:active,.dice-btn:active,.fc-nav button:active{transform:scale(.98)}
+.cat-btn:focus-visible,.btn:focus-visible,.option-btn:focus-visible,input:focus-visible,select:focus-visible{outline:none;box-shadow:var(--focus-ring)}
+.option-btn{min-height:54px;text-align:left;line-height:1.35;border-radius:14px;padding:13px 14px}
+.option-btn.correct{box-shadow:0 0 0 3px rgba(26,107,60,.16);border-color:var(--green);background:#effaf3}
+.option-btn.wrong{box-shadow:0 0 0 3px rgba(192,57,43,.14);background:#fff2f0}
+.option-btn.correct::after{content:'✓';float:right;font-weight:900;color:var(--green)}
+.option-btn.wrong::after{content:'×';float:right;font-weight:900;color:var(--red)}
+.feedback-box{line-height:1.55;border-radius:14px}
+.ai-hint-box{line-height:1.5;border-radius:14px}
+.search-input{min-height:48px}
+select,input{background:var(--card-bg)!important;color:var(--ink)!important}
+input::placeholder{color:var(--muted);opacity:1}
+.study-info{border-radius:14px;line-height:1.5}
+.card-3d{box-shadow:var(--shadow-soft)}
+.known-btns .btn-dontknow,.known-btns .btn-knew{min-height:50px;border-radius:13px;font-weight:800}
+.btn{min-height:46px;border-radius:12px;font-weight:800}
+.results-card{border-radius:20px}
+.progress-bar{height:10px;border-radius:999px;overflow:hidden}
+.progress-fill{transition:width .35s ease}
+@media(max-width:600px){
+  main{padding-left:14px;padding-right:14px;padding-bottom:82px}
+  header{padding:15px 14px 12px}
+  .header-inner{align-items:flex-start}
+  .logo{font-size:1.22rem}
+  .subtitle{font-size:.62rem;max-width:240px}
+  .score-pill{font-size:.72rem;padding:5px 10px}
+  .nav-inner{padding:0 8px;justify-content:flex-start}
+  .tab{font-size:.76rem;padding:12px 11px;white-space:nowrap}
+  .modes-grid{grid-template-columns:1fr 1fr;gap:10px}
+  .mode-card{padding:15px;min-height:150px}
+  .mode-desc{font-size:.76rem}
+  .mode-icon{width:40px;height:40px;font-size:1.25rem}
+}
+@media(max-width:380px){
+  .modes-grid{grid-template-columns:1fr}
+  .mode-card{min-height:auto}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
@@ -823,6 +890,31 @@ let boardAnswered = false;
 const TOKENS = ['🔴','🔵','🟢','🟡'];
 
 // =====================================
+// PERSISTÊNCIA LOCAL — progresso no próprio dispositivo
+// =====================================
+const STORAGE_KEY = 'nuria-estudo-progress-v2';
+function saveProgress(){
+  try{
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({
+      totalPoints,
+      fcKnown:[...fcKnown],
+      fcUnknown:[...fcUnknown]
+    }));
+  }catch(e){}
+}
+function loadProgress(){
+  try{
+    const raw=localStorage.getItem(STORAGE_KEY);
+    if(!raw) return;
+    const data=JSON.parse(raw);
+    if(Number.isFinite(data.totalPoints)) totalPoints=Math.max(0,data.totalPoints);
+    if(Array.isArray(data.fcKnown)) fcKnown=new Set(data.fcKnown);
+    if(Array.isArray(data.fcUnknown)) fcUnknown=new Set(data.fcUnknown);
+  }catch(e){}
+}
+
+
+// =====================================
 // IA — EMBARALHAMENTO INTELIGENTE
 // =====================================
 function aiShuffle(arr) {
@@ -914,6 +1006,7 @@ function showQuestion() {
   shuffled.forEach((opt, i) => {
     const btn = document.createElement('button');
     btn.className = 'option-btn';
+    btn.dataset.correct = i === correctShuffledIdx ? 'true' : 'false';
     btn.onclick = () => selectAnswer(i, i === correctShuffledIdx, q.exp, btn);
     btn.innerHTML = `<span class="option-letter">${letters[i]}</span>${opt.text}`;
     container.appendChild(btn);
@@ -934,11 +1027,9 @@ function selectAnswer(idx, correct, explanation, btn) {
     btn.classList.add('wrong');
     quizWrong++;
     document.getElementById('qWrong').textContent = quizWrong;
-    // Marcar a correta
+    // Mostrar claramente a resposta correta
     btns.forEach(b => {
-      if (!b.classList.contains('wrong') && b !== btn) {
-        // encontrar a correta pela sua classe
-      }
+      if (b.dataset.correct === 'true') b.classList.add('correct');
     });
   }
   updateGlobalScore();
@@ -1033,8 +1124,11 @@ function fcMove(dir) {
 function markCard(known) {
   const q = fcPool[fcIdx];
   const key = q.cat + '_' + q.q.substring(0, 20);
-  if (known) { fcKnown.add(key); fcUnknown.delete(key); totalPoints += 2; updateGlobalScore(); }
+  if (known) { fcKnown.add(key); fcUnknown.delete(key); totalPoints += 2; }
   else { fcUnknown.add(key); fcKnown.delete(key); }
+  saveProgress();
+  updateGlobalScore();
+  updateHomeStats();
   fcMove(1);
 }
 
@@ -1056,7 +1150,10 @@ function fcShowUnknown() {
 }
 
 function fcReset() {
-  fcKnown.clear(); fcUnknown.clear();
+  fcKnown.clear();
+  fcUnknown.clear();
+  saveProgress();
+  updateHomeStats();
   document.getElementById('fcCatFilter').value = 'all';
   fcFilter();
 }
@@ -1242,16 +1339,29 @@ function resetBoard() {
 function updateGlobalScore() {
   if (totalPoints < 0) totalPoints = 0;
   document.getElementById('globalScore').textContent = totalPoints + ' pts';
+  saveProgress();
 }
 
+
 function updateHomeStats() {
-  const pct = Math.round((fcKnown.size / QUESTIONS.length) * 100);
-  document.getElementById('homeProgress').textContent = pct + '%';
+  const studied = new Set([...fcKnown, ...fcUnknown]);
+  const pct = Math.round((studied.size / QUESTIONS.length) * 100);
+  const el=document.getElementById('homeProgress');
+  if(el) el.textContent = pct + '%';
+  const known=document.getElementById('fcKnownCount');
+  const unknown=document.getElementById('fcUnknownCount');
+  const unknown2=document.getElementById('fcUnknown2');
+  if(known) known.textContent=fcKnown.size;
+  if(unknown) unknown.textContent=fcUnknown.size;
+  if(unknown2) unknown2.textContent=fcUnknown.size;
 }
 
 // =====================================
 // INIT
 // =====================================
+loadProgress();
+updateGlobalScore();
+updateHomeStats();
 fcFilter();
 studyFilter();
 </script>

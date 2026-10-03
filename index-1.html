@@ -1,0 +1,1259 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Núria · Estudo da Monografia</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #1a1a2e;
+  --paper: #f8f5f0;
+  --accent: #0f4c81;
+  --gold: #c9960c;
+  --red: #c0392b;
+  --green: #1a6b3c;
+  --muted: #7a7a8a;
+  --card-bg: #ffffff;
+  --border: #ddd8d0;
+  --cat1: #0f4c81;
+  --cat2: #1a6b3c;
+  --cat3: #8b4513;
+  --cat4: #6b1a6b;
+  --cat5: #b8860b;
+  --cat6: #c0392b;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  min-height: 100vh;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ink: #e8e4de;
+    --paper: #1a1a2e;
+    --card-bg: #252540;
+    --border: #3a3a5a;
+    --muted: #9a9aaa;
+  }
+}
+/* HEADER */
+header {
+  background: var(--ink);
+  color: white;
+  padding: 18px 20px 14px;
+  position: sticky;
+  top: env(safe-area-inset-top, 0px);
+  z-index: 100;
+  border-bottom: 3px solid var(--gold);
+}
+.header-inner {
+  max-width: 860px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.logo { font-family: 'Playfair Display', serif; font-size: 1.35rem; font-weight: 900; line-height: 1; }
+.logo span { color: var(--gold); }
+.subtitle { font-size: 0.68rem; color: #aaa; margin-top: 2px; letter-spacing: 0.4px; }
+.score-pill {
+  background: var(--gold); color: var(--ink);
+  font-weight: 700; font-size: 0.8rem;
+  padding: 4px 12px; border-radius: 20px; white-space: nowrap;
+}
+/* NAV */
+nav {
+  background: var(--ink);
+  border-bottom: 1px solid #333;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+nav::-webkit-scrollbar { display: none; }
+.nav-inner {
+  max-width: 860px; margin: 0 auto;
+  display: flex; padding: 0 20px;
+}
+.tab {
+  padding: 10px 16px;
+  font-size: 0.8rem; font-weight: 600;
+  color: #777; cursor: pointer;
+  border-bottom: 3px solid transparent;
+  white-space: nowrap;
+  transition: color 0.2s, border-color 0.2s;
+}
+.tab.active { color: var(--gold); border-bottom-color: var(--gold); }
+.tab:hover:not(.active) { color: #ccc; }
+/* MAIN */
+main { max-width: 860px; margin: 0 auto; padding: 20px 16px; }
+.screen { display: none; }
+.screen.active { display: block; }
+/* HOME */
+.home-hero {
+  background: var(--ink); color: white;
+  border-radius: 12px; padding: 28px 24px;
+  margin-bottom: 20px; position: relative; overflow: hidden;
+}
+.home-hero::after {
+  content: ''; position: absolute;
+  right: -20px; bottom: -20px;
+  width: 130px; height: 130px;
+  background: var(--gold); opacity: 0.08; border-radius: 50%;
+}
+.home-hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem; font-weight: 900;
+  line-height: 1.15; margin-bottom: 8px;
+}
+.home-hero h1 em { font-style: normal; color: var(--gold); }
+.home-hero p { color: #bbb; font-size: 0.88rem; line-height: 1.6; max-width: 480px; }
+.home-hero .authors { margin-top: 10px; font-size: 0.75rem; color: #888; }
+.stats-row {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 10px; margin-bottom: 20px;
+}
+.stat-card {
+  background: var(--card-bg); border: 1px solid var(--border);
+  border-radius: 10px; padding: 14px; text-align: center;
+}
+.stat-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.9rem; font-weight: 900;
+  color: var(--accent); line-height: 1;
+}
+.stat-label { font-size: 0.7rem; color: var(--muted); margin-top: 4px; }
+.modes-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;
+}
+.mode-card {
+  background: var(--card-bg);
+  border: 2px solid var(--border); border-radius: 12px;
+  padding: 18px; cursor: pointer;
+  transition: border-color 0.2s, transform 0.15s;
+}
+.mode-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+.mode-icon { font-size: 1.8rem; margin-bottom: 6px; }
+.mode-title { font-weight: 700; font-size: 0.95rem; margin-bottom: 4px; }
+.mode-desc { font-size: 0.78rem; color: var(--muted); line-height: 1.4; }
+/* SECTION TITLE */
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem; font-weight: 700;
+  margin-bottom: 14px; padding-bottom: 8px;
+  border-bottom: 2px solid var(--gold);
+}
+/* PROGRESS BAR */
+.progress-bar {
+  height: 4px; background: var(--border);
+  border-radius: 2px; margin-bottom: 20px; overflow: hidden;
+}
+.progress-fill {
+  height: 100%; background: var(--accent);
+  border-radius: 2px; transition: width 0.4s ease;
+}
+/* CATEGORY BADGE */
+.cat-badge {
+  display: inline-block;
+  font-size: 0.7rem; font-weight: 600;
+  padding: 3px 10px; border-radius: 20px;
+  color: white; margin-bottom: 12px;
+}
+/* QUIZ */
+.quiz-header {
+  display: flex; align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px; flex-wrap: wrap; gap: 8px;
+}
+.quiz-meta { font-size: 0.8rem; color: var(--muted); }
+.quiz-meta strong { color: var(--ink); font-size: 0.92rem; }
+.question-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border); border-radius: 12px;
+  padding: 22px; margin-bottom: 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+.question-num { font-size: 0.72rem; color: var(--muted); margin-bottom: 6px; }
+.question-text { font-size: 1rem; font-weight: 600; line-height: 1.55; }
+.options-list { display: flex; flex-direction: column; gap: 9px; }
+.option-btn {
+  background: var(--card-bg);
+  border: 2px solid var(--border); border-radius: 10px;
+  padding: 13px 16px; text-align: left;
+  font-size: 0.88rem; font-family: 'Inter', sans-serif;
+  cursor: pointer; transition: all 0.18s;
+  display: flex; align-items: center; gap: 12px;
+}
+.option-btn:hover:not(:disabled) { border-color: var(--accent); background: #f0f4ff; }
+.option-btn.correct { border-color: var(--green); background: #e8f7ee; color: var(--green); }
+.option-btn.wrong { border-color: var(--red); background: #fdf0ef; color: var(--red); }
+.option-btn:disabled { cursor: default; }
+.option-letter {
+  width: 26px; height: 26px; border-radius: 50%;
+  background: var(--border); display: flex;
+  align-items: center; justify-content: center;
+  font-weight: 700; font-size: 0.76rem; flex-shrink: 0;
+}
+.option-btn.correct .option-letter { background: var(--green); color: white; }
+.option-btn.wrong .option-letter { background: var(--red); color: white; }
+.feedback-box {
+  border-radius: 10px; padding: 13px 16px;
+  font-size: 0.85rem; line-height: 1.55;
+  margin-bottom: 14px; display: none;
+}
+.feedback-box.show { display: block; }
+.feedback-box.correct { background: #e8f7ee; border-left: 4px solid var(--green); color: #145a32; }
+.feedback-box.wrong { background: #fdf0ef; border-left: 4px solid var(--red); color: #922b21; }
+/* IA DICA */
+.ai-hint-box {
+  background: linear-gradient(135deg, #0f4c81 0%, #1a3a6b 100%);
+  color: white; border-radius: 10px;
+  padding: 14px 16px; margin-bottom: 14px;
+  font-size: 0.85rem; line-height: 1.55; display: none;
+}
+.ai-hint-box.show { display: block; }
+.ai-hint-box .ai-label { font-size: 0.7rem; opacity: 0.7; margin-bottom: 4px; letter-spacing: 0.4px; font-weight: 600; }
+/* BUTTONS */
+.btn {
+  padding: 11px 22px; border: none;
+  border-radius: 8px; font-family: 'Inter', sans-serif;
+  font-size: 0.88rem; font-weight: 600;
+  cursor: pointer; transition: opacity 0.2s, transform 0.15s;
+}
+.btn:hover { opacity: 0.88; transform: translateY(-1px); }
+.btn-primary { background: var(--accent); color: white; }
+.btn-gold { background: var(--gold); color: var(--ink); }
+.btn-outline { background: transparent; border: 2px solid var(--border); color: var(--ink); }
+.btn-row { display: flex; gap: 10px; flex-wrap: wrap; }
+/* CAT GRID */
+.cat-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 10px; margin-bottom: 18px;
+}
+.cat-btn {
+  padding: 14px 14px; border-radius: 10px;
+  border: 2px solid transparent; color: white;
+  font-family: 'Inter', sans-serif; font-weight: 600;
+  font-size: 0.8rem; cursor: pointer;
+  text-align: left; transition: opacity 0.2s, transform 0.15s; line-height: 1.3;
+}
+.cat-btn:hover { opacity: 0.88; transform: translateY(-2px); }
+.cat-btn.cat1 { background: var(--cat1); }
+.cat-btn.cat2 { background: var(--cat2); }
+.cat-btn.cat3 { background: var(--cat3); }
+.cat-btn.cat4 { background: var(--cat4); }
+.cat-btn.cat5 { background: var(--cat5); color: var(--ink); }
+.cat-btn.cat6 { background: var(--cat6); }
+.cat-btn.all { background: var(--ink); grid-column: 1 / -1; }
+.cat-count { font-size: 0.7rem; opacity: 0.75; margin-top: 2px; }
+/* FLASHCARDS */
+.fc-controls {
+  display: flex; align-items: center;
+  justify-content: space-between; margin-bottom: 18px; flex-wrap: wrap; gap: 10px;
+}
+.fc-filter select, .fc-search input {
+  padding: 8px 11px; border: 2px solid var(--border);
+  border-radius: 8px; font-family: 'Inter', sans-serif;
+  font-size: 0.82rem; background: white; color: var(--ink);
+}
+.fc-counter { font-size: 0.82rem; color: var(--muted); }
+.card-scene { perspective: 1000px; margin-bottom: 18px; height: 230px; }
+.card-3d {
+  width: 100%; height: 100%; position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.55s cubic-bezier(.4,0,.2,1);
+  cursor: pointer;
+}
+.card-3d.flipped { transform: rotateY(180deg); }
+.card-face {
+  position: absolute; width: 100%; height: 100%;
+  backface-visibility: hidden; border-radius: 14px;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 26px; text-align: center;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.09);
+}
+.card-front { background: var(--ink); color: white; }
+.card-back {
+  background: var(--card-bg); border: 2px solid var(--border);
+  transform: rotateY(180deg);
+}
+.card-hint { font-size: 0.7rem; opacity: 0.5; margin-bottom: 10px; letter-spacing: 0.5px; text-transform: uppercase; }
+.card-content { font-size: 0.96rem; font-weight: 600; line-height: 1.55; }
+.card-back .card-content { color: var(--ink); }
+.card-cat { font-size: 0.7rem; margin-top: 10px; opacity: 0.6; }
+.fc-nav {
+  display: flex; align-items: center;
+  justify-content: center; gap: 14px;
+}
+.fc-nav button {
+  width: 42px; height: 42px; border-radius: 50%;
+  border: 2px solid var(--border); background: white;
+  font-size: 1.1rem; cursor: pointer;
+  transition: all 0.2s; display: flex;
+  align-items: center; justify-content: center;
+}
+.fc-nav button:hover { border-color: var(--accent); background: #f0f4ff; }
+.fc-pos { font-size: 0.85rem; font-weight: 600; color: var(--muted); }
+.known-btns {
+  display: flex; gap: 10px;
+  justify-content: center; margin-top: 14px;
+}
+.known-btns button {
+  flex: 1; max-width: 150px; padding: 10px;
+  border-radius: 8px; border: 2px solid var(--border);
+  font-family: 'Inter', sans-serif; font-size: 0.82rem;
+  font-weight: 600; cursor: pointer; transition: all 0.18s;
+}
+.btn-knew { border-color: var(--green) !important; color: var(--green); background: #e8f7ee; }
+.btn-knew:hover { background: var(--green); color: white; }
+.btn-dontknow { border-color: var(--red) !important; color: var(--red); background: #fdf0ef; }
+.btn-dontknow:hover { background: var(--red); color: white; }
+/* RESULTS */
+.results-card {
+  background: var(--card-bg); border: 1px solid var(--border);
+  border-radius: 16px; padding: 28px 22px; text-align: center;
+}
+.result-emoji { font-size: 3.5rem; margin-bottom: 10px; }
+.result-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.7rem; font-weight: 900; margin-bottom: 6px;
+}
+.result-score { font-size: 1rem; color: var(--muted); margin-bottom: 20px; }
+.result-breakdown {
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 8px; margin-bottom: 20px; text-align: left;
+}
+.result-item { background: var(--paper); border-radius: 8px; padding: 10px 12px; }
+.ri-label { font-size: 0.7rem; color: var(--muted); }
+.ri-val { font-weight: 700; font-size: 1.05rem; }
+/* STUDY MODE */
+.study-info {
+  background: var(--accent); color: white;
+  border-radius: 10px; padding: 12px 16px;
+  font-size: 0.85rem; line-height: 1.5; margin-bottom: 16px;
+}
+.study-card {
+  background: var(--card-bg); border: 1px solid var(--border);
+  border-radius: 10px; margin-bottom: 10px; overflow: hidden;
+}
+.study-q {
+  padding: 14px 16px; font-size: 0.9rem;
+  font-weight: 600; line-height: 1.5; cursor: pointer;
+  display: flex; justify-content: space-between; align-items: flex-start; gap: 12px;
+}
+.study-q:hover { background: #f8f8f8; }
+.study-q .sq-num { font-size: 0.68rem; color: var(--muted); white-space: nowrap; margin-top: 3px; }
+.study-a {
+  padding: 0 16px 14px; font-size: 0.85rem;
+  color: var(--accent); line-height: 1.6; display: none;
+  border-top: 1px solid var(--border); padding-top: 12px;
+}
+.study-a.open { display: block; }
+.study-badge {
+  display: inline-block; font-size: 0.66rem; font-weight: 600;
+  padding: 2px 7px; border-radius: 12px; color: white;
+  margin-bottom: 6px; white-space: nowrap;
+}
+/* BOARD */
+.board-setup { text-align: center; padding: 28px 0; }
+.board-setup h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem; margin-bottom: 6px;
+}
+.board-setup p { color: var(--muted); margin-bottom: 20px; }
+.player-input {
+  display: flex; flex-direction: column; gap: 8px;
+  max-width: 300px; margin: 0 auto 20px;
+}
+.player-input input {
+  padding: 10px 13px; border: 2px solid var(--border);
+  border-radius: 8px; font-family: 'Inter', sans-serif;
+  font-size: 0.88rem; text-align: center;
+}
+.board-top {
+  display: flex; gap: 10px; margin-bottom: 18px; flex-wrap: wrap;
+}
+.player-chip {
+  flex: 1; min-width: 120px;
+  background: var(--card-bg); border: 2px solid var(--border);
+  border-radius: 10px; padding: 10px 14px; text-align: center;
+  transition: border-color 0.2s;
+}
+.player-chip.active { border-color: var(--gold); background: #fffbf0; }
+.player-chip .pname { font-weight: 700; font-size: 0.9rem; }
+.player-chip .pscore {
+  font-size: 1.4rem; font-weight: 900;
+  color: var(--accent); font-family: 'Playfair Display', serif;
+}
+.player-chip .ppos { font-size: 0.7rem; color: var(--muted); }
+.track-container {
+  background: var(--card-bg); border: 1px solid var(--border);
+  border-radius: 12px; padding: 14px; margin-bottom: 14px; overflow-x: auto;
+}
+.track { display: flex; gap: 5px; min-width: 540px; padding: 6px 0; flex-wrap: wrap; }
+.cell {
+  width: 40px; height: 40px; border-radius: 8px;
+  border: 2px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.66rem; font-weight: 700; color: white;
+  position: relative; flex-shrink: 0; transition: transform 0.3s;
+}
+.cell.start { background: var(--green); }
+.cell.end { background: var(--gold); }
+.cell.cat1 { background: var(--cat1); }
+.cell.cat2 { background: var(--cat2); }
+.cell.cat3 { background: var(--cat3); }
+.cell.cat4 { background: var(--cat4); }
+.cell.cat5 { background: var(--cat5); color: #333; }
+.cell.cat6 { background: var(--cat6); }
+.cell .token {
+  position: absolute; top: -7px; right: -7px;
+  font-size: 0.9rem;
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3));
+}
+.board-q-card {
+  background: var(--card-bg); border: 1px solid var(--border);
+  border-radius: 12px; padding: 18px; margin-bottom: 14px;
+}
+.dice-area { text-align: center; margin-bottom: 14px; }
+.dice-btn {
+  font-size: 1.8rem; background: none;
+  border: 3px solid var(--gold); border-radius: 12px;
+  width: 66px; height: 66px; cursor: pointer;
+  transition: transform 0.2s;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.dice-btn:hover { transform: scale(1.1) rotate(15deg); }
+.dice-result { font-size: 0.85rem; color: var(--muted); margin-top: 5px; }
+/* RESPONSIVE */
+@media (max-width: 480px) {
+  .modes-grid { grid-template-columns: 1fr; }
+  .result-breakdown { grid-template-columns: 1fr; }
+  .cat-grid { grid-template-columns: 1fr; }
+  .cat-btn.all { grid-column: 1; }
+  .home-hero h1 { font-size: 1.5rem; }
+}
+/* SEARCH */
+.search-input {
+  width: 100%; padding: 10px 14px;
+  border: 2px solid var(--border); border-radius: 8px;
+  font-family: 'Inter', sans-serif; font-size: 0.88rem;
+  margin-bottom: 16px;
+}
+.ai-shuffle-info {
+  background: #f0f4ff; border: 1px solid #c0d0f0;
+  border-radius: 8px; padding: 10px 14px;
+  font-size: 0.78rem; color: #2a4a8a; margin-bottom: 14px;
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <div>
+      <div class="logo">Núria<span>.</span>Estudo</div>
+      <div class="subtitle">Jornalismo Digital · Jornal de Angola · IMETRO 2026</div>
+    </div>
+    <div class="score-pill" id="globalScore">0 pts</div>
+  </div>
+</header>
+<nav>
+  <div class="nav-inner">
+    <div class="tab active" onclick="goTab('home')">🏠 Início</div>
+    <div class="tab" onclick="goTab('quiz')">🎯 Quiz</div>
+    <div class="tab" onclick="goTab('flash')">🃏 Flashcards</div>
+    <div class="tab" onclick="goTab('board')">🎲 Tabuleiro</div>
+    <div class="tab" onclick="goTab('study')">📚 Estudo</div>
+  </div>
+</nav>
+<main>
+
+<!-- HOME -->
+<div class="screen active" id="screen-home">
+  <div class="home-hero">
+    <h1>Conhece a<br><em>Monografia</em></h1>
+    <p>A Evolução do Jornalismo Tradicional para o Digital — Estudo de Caso: Jornal de Angola</p>
+    <div class="authors">Celina Sónia Chimbinda · Núria de Lourdes Saraiva Baltazar</div>
+  </div>
+  <div class="stats-row">
+    <div class="stat-card"><div class="stat-num">120</div><div class="stat-label">Perguntas</div></div>
+    <div class="stat-card"><div class="stat-num">6</div><div class="stat-label">Categorias</div></div>
+    <div class="stat-card"><div class="stat-num" id="homeProgress">0%</div><div class="stat-label">Progresso</div></div>
+  </div>
+  <p class="section-title">Escolhe um modo de estudo</p>
+  <div class="modes-grid">
+    <div class="mode-card" onclick="goTab('quiz')">
+      <div class="mode-icon">🎯</div>
+      <div class="mode-title">Quiz Interativo</div>
+      <div class="mode-desc">Múltipla escolha com IA que embaralha as perguntas de forma inteligente</div>
+    </div>
+    <div class="mode-card" onclick="goTab('flash')">
+      <div class="mode-icon">🃏</div>
+      <div class="mode-title">Flashcards</div>
+      <div class="mode-desc">Vira a carta para revelar a resposta. Marca o que já sabes</div>
+    </div>
+    <div class="mode-card" onclick="goTab('board')">
+      <div class="mode-icon">🎲</div>
+      <div class="mode-title">Tabuleiro</div>
+      <div class="mode-desc">Jogo para 1–4 jogadores com dados e categorias de cores</div>
+    </div>
+    <div class="mode-card" onclick="goTab('study')">
+      <div class="mode-icon">📚</div>
+      <div class="mode-title">Estudo Misto</div>
+      <div class="mode-desc">Todas as perguntas com respostas completas e contexto</div>
+    </div>
+  </div>
+</div>
+
+<!-- QUIZ -->
+<div class="screen" id="screen-quiz">
+  <div id="quiz-cat-select">
+    <p class="section-title">🎯 Escolhe a Categoria</p>
+    <div class="ai-shuffle-info">✨ A IA vai embaralhar as perguntas de forma inteligente — nunca na mesma ordem!</div>
+    <div class="cat-grid">
+      <button class="cat-btn all" onclick="startQuiz('all')">🌐 Todas as Categorias<div class="cat-count">120 perguntas</div></button>
+      <button class="cat-btn cat1" onclick="startQuiz(0)">📘 Introdução & Metodologia<div class="cat-count">20 perguntas</div></button>
+      <button class="cat-btn cat2" onclick="startQuiz(1)">📗 Fundamentação Teórica<div class="cat-count">30 perguntas</div></button>
+      <button class="cat-btn cat3" onclick="startQuiz(2)">📙 Jornal de Angola<div class="cat-count">35 perguntas</div></button>
+      <button class="cat-btn cat4" onclick="startQuiz(3)">📓 Dados & Entrevistas<div class="cat-count">22 perguntas</div></button>
+      <button class="cat-btn cat5" onclick="startQuiz(4)">📒 Conclusão & Sugestões<div class="cat-count">6 perguntas</div></button>
+      <button class="cat-btn cat6" onclick="startQuiz(5)">📕 Interpretação & Análise<div class="cat-count">7 perguntas</div></button>
+    </div>
+  </div>
+  <div id="quiz-play" style="display:none">
+    <div class="quiz-header">
+      <div class="quiz-meta">Pergunta <strong id="qNum">1</strong> de <span id="qTotal">20</span></div>
+      <div class="quiz-meta">✅ <strong id="qScore">0</strong> | ❌ <strong id="qWrong">0</strong></div>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="qProgress" style="width:0%"></div></div>
+    <div class="cat-badge" id="qCatBadge"></div>
+    <div class="question-card">
+      <div class="question-num" id="qNumLabel"></div>
+      <div class="question-text" id="qText"></div>
+    </div>
+    <div class="options-list" id="qOptions"></div>
+    <div class="ai-hint-box" id="aiHint"><div class="ai-label">💡 DICA DA IA</div><div id="aiHintText"></div></div>
+    <div class="feedback-box" id="qFeedback"></div>
+    <div class="btn-row" style="margin-top:8px">
+      <button class="btn btn-primary" id="qNextBtn" onclick="nextQuestion()" style="display:none">Próxima →</button>
+      <button class="btn btn-outline" id="qHintBtn" onclick="showAiHint()" style="font-size:0.8rem">💡 Dica</button>
+    </div>
+  </div>
+  <div id="quiz-result" style="display:none">
+    <div class="results-card">
+      <div class="result-emoji" id="resEmoji">🏆</div>
+      <div class="result-title" id="resTitle">Excelente!</div>
+      <div class="result-score" id="resScore"></div>
+      <div class="result-breakdown">
+        <div class="result-item"><div class="ri-label">Corretas</div><div class="ri-val" id="resCorrect" style="color:var(--green)"></div></div>
+        <div class="result-item"><div class="ri-label">Erradas</div><div class="ri-val" id="resWrong" style="color:var(--red)"></div></div>
+        <div class="result-item"><div class="ri-label">Precisão</div><div class="ri-val" id="resAcc"></div></div>
+        <div class="result-item"><div class="ri-label">Pontos</div><div class="ri-val" id="resPoints" style="color:var(--accent)"></div></div>
+      </div>
+      <div class="btn-row" style="justify-content:center">
+        <button class="btn btn-primary" onclick="startQuiz(currentCat)">Tentar de novo</button>
+        <button class="btn btn-outline" onclick="showCatSelect()">Mudar Categoria</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FLASHCARDS -->
+<div class="screen" id="screen-flash">
+  <div class="fc-controls">
+    <div class="fc-filter">
+      <select id="fcCatFilter" onchange="fcFilter()">
+        <option value="all">Todas as categorias</option>
+        <option value="0">Introdução & Metodologia</option>
+        <option value="1">Fundamentação Teórica</option>
+        <option value="2">Jornal de Angola</option>
+        <option value="3">Dados & Entrevistas</option>
+        <option value="4">Conclusão & Sugestões</option>
+        <option value="5">Interpretação & Análise</option>
+      </select>
+    </div>
+    <div class="fc-counter" id="fcCounter">1 / 120</div>
+  </div>
+  <div class="card-scene">
+    <div class="card-3d" id="fcCard" onclick="flipCard()">
+      <div class="card-face card-front">
+        <div class="card-hint">Clica para revelar a resposta</div>
+        <div class="card-content" id="fcQuestion">—</div>
+        <div class="card-cat" id="fcCatLabel"></div>
+      </div>
+      <div class="card-face card-back">
+        <div class="card-hint">✅ Resposta</div>
+        <div class="card-content" id="fcAnswer">—</div>
+      </div>
+    </div>
+  </div>
+  <div class="known-btns" id="fcKnownBtns" style="display:none">
+    <button class="btn-dontknow" onclick="markCard(false)">😕 Não sei</button>
+    <button class="btn-knew" onclick="markCard(true)">✅ Já sei!</button>
+  </div>
+  <div class="fc-nav">
+    <button onclick="fcMove(-1)">←</button>
+    <span class="fc-pos" id="fcPos">1 / 120</span>
+    <button onclick="fcMove(1)">→</button>
+  </div>
+  <div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap">
+    <button class="btn btn-outline" onclick="fcShuffle()" style="font-size:0.8rem">🔀 Baralhar (IA)</button>
+    <button class="btn btn-outline" onclick="fcShowUnknown()" style="font-size:0.8rem">😕 A rever (<span id="fcUnknownCount">0</span>)</button>
+    <button class="btn btn-outline" onclick="fcReset()" style="font-size:0.8rem">↺ Reiniciar</button>
+  </div>
+  <div style="margin-top:8px;font-size:0.78rem;color:var(--muted)">✅ Já sabes: <strong id="fcKnownCount">0</strong> | 😕 A rever: <strong id="fcUnknown2">0</strong></div>
+</div>
+
+<!-- BOARD -->
+<div class="screen" id="screen-board">
+  <div class="board-setup" id="boardSetup">
+    <p class="section-title" style="text-align:center">🎲 Configurar Jogo</p>
+    <p>Introduz os nomes dos jogadores (mínimo 1)</p>
+    <div class="player-input">
+      <input type="text" id="p1name" placeholder="Jogador 1" value="Jogador 1">
+      <input type="text" id="p2name" placeholder="Jogador 2 (opcional)">
+      <input type="text" id="p3name" placeholder="Jogador 3 (opcional)">
+      <input type="text" id="p4name" placeholder="Jogador 4 (opcional)">
+    </div>
+    <button class="btn btn-primary" onclick="startBoard()">Iniciar Jogo</button>
+    <div style="margin-top:14px;font-size:0.78rem;color:var(--muted);max-width:300px;margin-left:auto;margin-right:auto">🎯 Cada casa tem uma cor de categoria. Responde corretamente para avançar!</div>
+  </div>
+  <div class="board-game" id="boardGame" style="display:none">
+    <div class="board-top" id="boardPlayers"></div>
+    <div class="track-container"><div class="track" id="boardTrack"></div></div>
+    <div id="boardQuestionArea">
+      <div class="dice-area">
+        <button class="dice-btn" id="diceBtn" onclick="rollDice()">🎲</button>
+        <div class="dice-result" id="diceResult">Clica para lançar o dado</div>
+      </div>
+    </div>
+    <div class="btn-row" style="margin-top:10px">
+      <button class="btn btn-outline" onclick="resetBoard()" style="font-size:0.8rem">↺ Novo Jogo</button>
+    </div>
+  </div>
+</div>
+
+<!-- STUDY -->
+<div class="screen" id="screen-study">
+  <p class="section-title">📚 Estudo Misto</p>
+  <div class="study-info">Clica em qualquer pergunta para ver a resposta completa. Usa a pesquisa ou o filtro para navegar.</div>
+  <div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap">
+    <select id="studyCatFilter" onchange="studyFilter()" style="padding:8px 11px;border:2px solid var(--border);border-radius:8px;font-family:Inter,sans-serif;font-size:0.82rem;background:white;color:var(--ink)">
+      <option value="all">Todas as categorias</option>
+      <option value="0">Introdução & Metodologia</option>
+      <option value="1">Fundamentação Teórica</option>
+      <option value="2">Jornal de Angola</option>
+      <option value="3">Dados & Entrevistas</option>
+      <option value="4">Conclusão & Sugestões</option>
+      <option value="5">Interpretação & Análise</option>
+    </select>
+    <input type="text" id="studySearch" placeholder="🔍 Pesquisar..." oninput="studyFilter()" style="padding:8px 11px;border:2px solid var(--border);border-radius:8px;font-family:Inter,sans-serif;font-size:0.82rem;flex:1;min-width:140px">
+  </div>
+  <div id="studyList"></div>
+</div>
+
+</main>
+
+<script>
+// =====================================
+// BANCO DE PERGUNTAS — MONOGRAFIA NÚRIA
+// =====================================
+const CATS = [
+  { name: 'Introdução & Metodologia', color: '#0f4c81', cls: 'cat1' },
+  { name: 'Fundamentação Teórica', color: '#1a6b3c', cls: 'cat2' },
+  { name: 'Jornal de Angola', color: '#8b4513', cls: 'cat3' },
+  { name: 'Dados & Entrevistas', color: '#6b1a6b', cls: 'cat4' },
+  { name: 'Conclusão & Sugestões', color: '#b8860b', cls: 'cat5' },
+  { name: 'Interpretação & Análise', color: '#c0392b', cls: 'cat6' }
+];
+
+const QUESTIONS = [
+// ── CAT 0: INTRODUÇÃO & METODOLOGIA ──
+{ cat:0, q:'Qual é o tema central desta monografia?', opts:['A história do rádio em Angola','A Evolução do Jornalismo Tradicional para o Digital — Estudo de Caso: Jornal de Angola','O impacto das redes sociais na política angolana','A televisão pública em Angola'], ans:1, exp:'O tema central é a evolução do jornalismo tradicional para o digital, tomando o Jornal de Angola como caso de estudo.' },
+{ cat:0, q:'Em que instituição foi apresentada esta monografia?', opts:['Universidade Agostinho Neto','Universidade Técnica de Angola','Instituto Superior Politécnico Metropolitano de Angola (IMETRO)','Instituto de Relações Internacionais de Angola'], ans:2, exp:'A monografia foi apresentada no Instituto Superior Politécnico Metropolitano de Angola (IMETRO), em Luanda, 2026.' },
+{ cat:0, q:'Quais são as autoras desta monografia?', opts:['Celina Sónia Chimbinda e Núria de Lourdes Saraiva Baltazar','Maria João Silva e Catarina Ferreira','Anabela Costa e Teresa Rodrigues','Lúcia Mendes e Filomena Santos'], ans:0, exp:'As autoras são Celina Sónia Chimbinda e Núria de Lourdes Saraiva Baltazar, estudantes de Jornalismo no IMETRO.' },
+{ cat:0, q:'Quem orientou este trabalho de fim de curso?', opts:['Professor Doutor António Silva','Professor Mestre João Manuel Pedro','Professora Doutora Maria Santos','Professor Doutor Paulo Ferreira'], ans:1, exp:'O trabalho foi orientado pelo Professor Mestre João Manuel Pedro.' },
+{ cat:0, q:'Qual é o problema de pesquisa central desta monografia?', opts:['Como o Jornal de Angola tem acompanhado e se adaptado às mudanças tecnológicas e às novas dinâmicas do ecossistema digital?','Como aumentar a tiragem do Jornal de Angola?','Qual é o impacto da televisão no jornalismo impresso?','Como financiar o jornalismo angolano?'], ans:0, exp:'O problema central é: "De que forma o Jornal de Angola tem acompanhado e se adaptado às mudanças tecnológicas e às novas dinâmicas do ecossistema digital?"' },
+{ cat:0, q:'A H1 (hipótese 1) desta monografia afirma que:', opts:['O Jornal de Angola não tem presença digital','Os principais desafios incluem concorrência com plataformas nativas, monetização e adaptação de competências dos jornalistas','O digital substituiu completamente o impresso no Jornal de Angola','O Jornal de Angola tem mais leitores impressos do que digitais'], ans:1, exp:'A H1 refere que os principais desafios do JA na transição digital incluem a concorrência com plataformas nativas, a monetização online e a adaptação das competências dos jornalistas às novas ferramentas digitais.' },
+{ cat:0, q:'A H2 (hipótese 2) desta monografia foi:', opts:['Confirmada — o JA não tem presença digital','Não confirmada — o JA tem sim procurado adaptar-se ao digital','Parcialmente confirmada','Indeterminada'], ans:1, exp:'A H2 (que o JA não teria procurado adaptar-se ao digital) não se confirmou, pois 66% dos respondentes percebem a transição como positiva para a credibilidade do jornal.' },
+{ cat:0, q:'Qual é o objetivo geral desta monografia?', opts:['Propor um novo modelo editorial para o Jornal de Angola','Analisar a evolução do modelo de jornalismo do JA desde a sua prática tradicional até à inserção no ambiente digital','Comparar o jornalismo angolano com o português','Medir a audiência online do Jornal de Angola'], ans:1, exp:'O objetivo geral é analisar a evolução do modelo de jornalismo do JA desde a sua prática predominantemente tradicional até à sua inserção e adaptação no ambiente digital.' },
+{ cat:0, q:'Qual o tipo de amostragem utilizada na pesquisa?', opts:['Probabilística aleatória','Não probabilística por conveniência','Estratificada proporcional','Sistemática'], ans:1, exp:'A amostragem utilizada foi não probabilística por conveniência, pois permitia às pesquisadoras escolher os elementos de sua preferência.' },
+{ cat:0, q:'Quantos respondentes constituíram a amostra total da pesquisa?', opts:['50','75','100','150'], ans:2, exp:'A amostra foi constituída por 100 respondentes: 96 leitores, 1 profissional do JA, 1 comunicólogo, 1 sociólogo e 1 psicólogo.' },
+{ cat:0, q:'Em que anos cobre a delimitação temporal desta pesquisa?', opts:['1975 a 2000','Início da década de 2000 até ao momento atual','1990 a 2010','2015 a 2026'], ans:1, exp:'A pesquisa delimita-se ao início da década de 2000, acompanhando a expansão da internet em Angola, até ao momento atual.' },
+{ cat:0, q:'Qual foi a principal limitação desta pesquisa?', opts:['Falta de acesso à internet','Indisponibilidade de profissionais do Jornal de Angola para conceder entrevistas','Falta de bibliografia especializada','Impossibilidade de acesso ao arquivo do JA'], ans:1, exp:'A principal limitação foi a indisponibilidade e indisposição de profissionais do JA para conceder entrevistas, eventualmente por questões de tempo, confidencialidade ou acesso.' },
+{ cat:0, q:'Qual o método principal utilizado nesta pesquisa?', opts:['Etnografia','Survey','Estudo longitudinal','Grupo focal'], ans:1, exp:'O método utilizado foi o Survey, que se caracteriza pela interrogação direta às pessoas cujo comportamento se deseja conhecer (Gil, 2002).' },
+{ cat:0, q:'Quais os procedimentos técnicos utilizados na pesquisa?', opts:['Apenas questionário online','Observação, entrevista semi-estruturada e inquérito por questionário','Grupos focais e entrevistas em profundidade','Análise de conteúdo e observação participante'], ans:1, exp:'Os procedimentos técnicos utilizados foram observação, entrevista semi-estruturada e inquérito por questionário.' },
+{ cat:0, q:'Qual é a natureza do estudo desta monografia?', opts:['Aplicada apenas','Básica apenas','Básica e aplicada','Exploratória apenas'], ans:2, exp:'A natureza do estudo é básica e aplicada — básica por gerar conhecimento sobre o tema e aplicada por ter implicações práticas.' },
+{ cat:0, q:'Onde foram realizadas as entrevistas com os especialistas?', opts:['Benguela','Luanda, Município do Cazenga','Luanda, Município de Luanda','Huíla'], ans:1, exp:'As entrevistas foram realizadas na província de Luanda, no Município do Cazenga.' },
+{ cat:0, q:'André Sibi, quem foi entrevistado como profissional do Jornal de Angola, era à data:', opts:['Editor-chefe do JA em Luanda','Diretor do JA na província do Kuanza Norte','Correspondente do JA em Lisboa','Fotógrafo do JA'], ans:1, exp:'À data da entrevista (3 de março de 2026), André Sibi era Diretor do Jornal de Angola na província do Kuanza Norte.' },
+{ cat:0, q:'Como foi conduzido o inquérito aos leitores?', opts:['Apenas presencialmente','Apenas online via Google Forms','Em duas vias: impresso e online (Google Forms)','Apenas por telefone'], ans:2, exp:'O inquérito foi conduzido em duas vias: uma impressa e outra online (Google Forms).' },
+{ cat:0, q:'Segundo Lakatos e Marconi (1992), quais aspetos devem ser considerados para decidir o problema a analisar?', opts:['Originalidade e complexidade','Viabilidade, relevância, novidade, exequibilidade e oportunidade','Custo, tempo e recursos disponíveis','Interesse pessoal e orientação académica'], ans:1, exp:'Segundo Lakatos e Marconi (1992), devem ser considerados: viabilidade, relevância, novidade, exequibilidade e oportunidade.' },
+{ cat:0, q:'Em quantos capítulos está estruturada esta monografia?', opts:['Dois','Três','Quatro','Cinco'], ans:1, exp:'A monografia está constituída por três capítulos: Fundamentação Teórica, O Jornal de Angola do Tradicional para o Digital, e Apresentação/Análise dos Dados.' },
+
+// ── CAT 1: FUNDAMENTAÇÃO TEÓRICA ──
+{ cat:1, q:'De que origem é a palavra "evolução"?', opts:['Grega','Inglesa','Latina — "evolutĭo"','Árabe'], ans:2, exp:'O conceito de evolução deriva do termo latino "evolutĭo" e faz referência à ação e ao efeito de evoluir.' },
+{ cat:1, q:'Segundo Santos (1965), o que significa etimologicamente "evolução"?', opts:['Transformação radical','Desenvolvimento, volver para fora o que já está contido em algo','Retrocesso controlado','Mudança de paradigma'], ans:1, exp:'Para Santos (1965), etimologicamente, evolução significa desenvolvimento, volver para fora o que já está contido em algo.' },
+{ cat:1, q:'A palavra "digital" deriva do latim "digitalis", relacionada com:', opts:['Computadores','Os dedos','A escrita','A velocidade'], ans:1, exp:'A palavra digital deriva do latim "digitalis", com sentido do que se relaciona com os dedos, com o mesmo comprimento ou espessura de um dedo.' },
+{ cat:1, q:'Quem usou pela primeira vez a palavra "digital" no sentido técnico moderno?', opts:['Bill Gates em 1975','Alan Turing em 1950','O matemático George Stibitz da Bell Telephone Laboratories em 1942','Tim Berners-Lee em 1989'], ans:2, exp:'O matemático George Stibitz, da Bell Telephone Laboratories, usou a palavra digital em referência a pulsos elétricos para mirar canhões antiaéreos em 1942.' },
+{ cat:1, q:'De que língua provém o termo "jornalismo" e o que significa a sua raiz?', opts:['Do inglês "journal" — diário','Do francês "journalisme" com referência ao latim "diurnalis" — algo que ocorre regularmente','Do italiano "giornale" — dia','Do alemão "Journal" — notícia'], ans:1, exp:'O termo provém do francês "journalisme", com referência ao latim "diurnalis", que compreende algo que ocorre de maneira regular.' },
+{ cat:1, q:'Para Letria e Goulão (1986), o jornalismo é visto como:', opts:['O primeiro poder','O segundo poder','O quarto poder','O terceiro estado'], ans:2, exp:'Para Letria e Goulão (1986), o jornalismo é visto como o quarto poder, capaz de criar elo entre a política e a sociedade.' },
+{ cat:1, q:'Em que século se verificou o maior desenvolvimento da imprensa como atividade profissional?', opts:['No século XVII','No século XVIII','No século XIX','No século XX'], ans:2, exp:'Foi durante o século XIX que se verificou o desenvolvimento da imprensa e a expansão dos jornais como negócio lucrativo e autónomo.' },
+{ cat:1, q:'A quem é atribuída a criação do papel?', opts:['Aos japoneses','Aos chineses — especificamente a TshaiLun','Aos egípcios — no papiro','Aos gregos — no pergaminho'], ans:1, exp:'A criação do papel é atribuída aos chineses, especificamente a TshaiLun. A sua versão inicial é datada no século II d.C.' },
+{ cat:1, q:'Como se chamava o método de impressão usado antes dos tipos móveis coreanos?', opts:['Impressão heliográfica','Impressão em bloco (bloco de madeira entalhada)','Litografia','Tipografia rotativa'], ans:1, exp:'Segundo Briggs e Burke (2006), a impressão surgiu desde o século VIII com a impressão em bloco — usando um bloco de madeira entalhada para imprimir uma única página.' },
+{ cat:1, q:'Quantos locais na Europa tinham máquinas de impressão por volta de 1500?', opts:['Mais de 100','Mais de 150','Mais de 250','Mais de 500'], ans:2, exp:'Segundo Briggs e Burke (2006), por volta de 1500 haviam sido instaladas máquinas de impressão em mais de 250 lugares na Europa: 80 na Itália, 52 na Alemanha e 43 na França.' },
+{ cat:1, q:'Que evento deu início ao princípio da conectividade que levaria à internet?', opts:['A invenção do telemóvel em 1983','O lançamento do satélite Sputnik pela URSS em 1957','A criação da ARPANET em 1965','A queda do Muro de Berlim em 1989'], ans:1, exp:'Em 1957, durante a Guerra Fria, a ex-URSS pôs em órbita o primeiro satélite espacial artificial, o Sputnik — o princípio da conectividade.' },
+{ cat:1, q:'Segundo Ferrari (2008), em que ano foi concebida a internet?', opts:['1957','1965','1969','1975'], ans:2, exp:'Ferrari (2008) aponta que no ano de 1969 a internet foi concebida.' },
+{ cat:1, q:'Quantos anos levou a internet para ser aceite por 50 milhões de utilizadores (período de aceitação)?', opts:['15 anos','10 anos','7 anos','3 anos'], ans:2, exp:'Segundo Pinho (2003), a internet teve um período de aceitação de 7 anos (de 1990 até 1997), muito mais rápido que a TV (25 anos) ou o rádio (40 anos).' },
+{ cat:1, q:'O que significa "shovelware" no contexto do jornalismo digital?', opts:['Software jornalístico de alta qualidade','A simples transferência de conteúdo de um meio tradicional para o digital sem adaptação','Conteúdo exclusivo para plataformas digitais','Jornalismo investigativo online'], ans:1, exp:'Shovelware é um termo pejorativo que descreve a simples transferência de conteúdo de um meio tradicional para o digital, com pouca ou nenhuma adaptação — como "atirar conteúdo com uma pá" para o online.' },
+{ cat:1, q:'Em que ano surgiu o modelo Web 2.0?', opts:['1995','1998','2001','2005'], ans:2, exp:'Em 2001 surge o modelo Web 2.0, também conhecido como a "cultura da participação", que representa um novo momento onde o utilizador passa a colaborar com a plataforma.' },
+{ cat:1, q:'Quem criou o conceito de "Cauda Longa" (The Long Tail)?', opts:['Tim O\'Reilly','Dale Dougherty','Chris Anderson','Manuel Castells'], ans:2, exp:'O conceito de Cauda Longa (The Long Tail) foi criado por Chris Anderson — "escolha infinita" que fragmenta o público entre inúmeras opções.' },
+{ cat:1, q:'Quais são as quatro funções do jornalismo segundo Amaral (2001)?', opts:['Informativa, formativa, de entretenimento e comercial','Política, económica, educativa e de entretenimento','Social, cultural, política e económica','Noticiosa, opinativa, publicitária e desportiva'], ans:1, exp:'Segundo Amaral (2001), as quatro funções do jornalismo são: política (instrumento de direção dos negócios públicos), económica (difusão para desenvolvimento), educativa (publicação de noticiários educativos) e entretenimento (cultura e lazer).' },
+{ cat:1, q:'Segundo Moherdaui (2000), o que deve ser considerado na produção de um jornal online?', opts:['Apenas a qualidade do texto','O tempo gasto pelo usuário na leitura e o horário de maior visitação do site','Apenas o número de cliques','A opinião dos anunciantes'], ans:1, exp:'Para Moherdaui (2000), a produção online deve considerar o tempo gasto pelo usuário com a leitura de notícias e o horário de maior visitação do site.' },
+{ cat:1, q:'O que caracteriza o jornalismo online em relação ao impresso, segundo Ferrari (2002)?', opts:['Menos profissionais necessários','O jornalista web deve pensar de forma multimédia — texto, imagem, vídeo, áudio — integrando múltiplos elementos','Menor rigor editorial','Apenas texto e fotografias'], ans:1, exp:'Ferrari (2002) afirma que o jornalista Web deve pensar de forma multimédia, combinando texto, imagem, áudio e vídeo, ao contrário do jornalista de mídia impressa que privilegia apenas a informação textual.' },
+{ cat:1, q:'Qual é o grande dilema do jornalismo online segundo Moherdaui (2000)?', opts:['A rentabilidade vs. qualidade','A velocidade vs. qualidade','A liberdade de imprensa vs. regulação','O local vs. o global'], ans:1, exp:'O grande dilema é a velocidade de disponibilização das notícias versus as consequências desse ritmo sobre a qualidade da informação veiculada.' },
+{ cat:1, q:'Segundo Viana (2001), o que determinará a sobrevivência no jornalismo digital?', opts:['A velocidade de publicação','A maior credibilidade, não a maior velocidade','O número de seguidores nas redes sociais','O investimento em tecnologia'], ans:1, exp:'Viana (2001) defende que "sobreviverá quem tiver maior credibilidade e não quem for mais veloz".' },
+{ cat:1, q:'O que é a "convergência de mídias" mencionada por Bonfim (2014)?', opts:['A fusão de jornais concorrentes','A possibilidade de integrar texto, imagem, vídeo e áudio numa só publicação online','A regulação unificada dos meios de comunicação','A transmissão simultânea em todos os canais'], ans:1, exp:'A convergência de mídias é a possibilidade de integrar texto, imagem, vídeo e áudio num só canal (a internet), algo impossível nos meios tradicionais separados.' },
+{ cat:1, q:'Segundo Traquina (2005), qual valor cultural jornalístico é especialmente potenciado pelas tecnologias?', opts:['A objetividade','O imediatismo (a transmissão direta do acontecimento)','A profundidade de análise','O pluralismo de fontes'], ans:1, exp:'Para Traquina (2005), os avanços tecnológicos apertaram cada vez mais a pressão das horas de fechamento, permitindo a realização do imediatismo — "a transmissão direta do acontecimento".' },
+{ cat:1, q:'Clóvis Rossi (2005) descreve o jornalismo como:', opts:['Uma ciência exata da informação','Uma fascinante batalha pela conquista de mentes e corações dos leitores','Um serviço público isento e neutro','Uma indústria baseada em publicidade'], ans:1, exp:'Rossi (2005) diz que o jornalismo "é uma fascinante batalha pela conquista de mentes e corações de seus alvos: leitores, telespectadores, ou ouvintes".' },
+{ cat:1, q:'Qual foi o impacto da criação do papel pelos chineses nas comunicações?', opts:['Tornou possível a impressão digital','Substituiu o rádio','Permitiu a criação de livros e jornais impressos, expandindo o conhecimento escrito','Criou a televisão'], ans:2, exp:'A criação do papel permitiu a produção de livros e, séculos depois, de jornais impressos, sendo um passo fundamental para a expansão do conhecimento e da imprensa.' },
+{ cat:1, q:'O que é a Wikipedia no contexto da Web 2.0?', opts:['Um motor de busca pago','Uma enciclopédia livre onde o próprio utilizador pode criar e modificar conteúdo — exemplo da inteligência coletiva','Um jornal digital angolano','Um sistema de gestão de conteúdos para empresas'], ans:1, exp:'A Wikipedia ilustra a Web 2.0 e a inteligência coletiva: permite ao internauta acrescentar e/ou modificar informações, sendo construída colaborativamente por utilizadores.' },
+{ cat:1, q:'O "jornalismo amarelo" surgiu nos EUA no final do século XIX como:', opts:['Jornalismo rigoroso e factual','Uma forma mais sensacionalista de jornalismo baseada em factos exagerados para vender mais','O primeiro jornalismo online','Jornalismo político oficial'], ans:1, exp:'Nos EUA, o jornalismo mais sensacionalista do final do século XIX recebeu o nome de "jornalismo amarelo" — focado em chocar e vender, em vez de informar com rigor.' },
+{ cat:1, q:'Segundo Lobo (2013), qual é o papel social do jornalismo?', opts:['Apenas informar sobre eventos','Interpretar e traduzir informações, atribuindo sentido e precisão','Promover os interesses do Estado','Anunciar produtos e serviços'], ans:1, exp:'Lobo (2013) defende que o papel social do jornalismo é interpretar e traduzir informações, atribuindo-lhes sentido e precisão, não apenas informar.' },
+{ cat:1, q:'Segundo Bourdieu (1997), o que é afetado pela falta de tempo no jornalismo?', opts:['A rentabilidade dos jornais','A cobertura jornalística, que muitas vezes é feita superficialmente por falta de tempo para apurar detalhadamente','A circulação dos jornais impressos','A contratação de jornalistas'], ans:1, exp:'Bourdieu (1997) afirma que devido à falta de tempo para apurar informações e fazer pesquisa aprofundada, os jornalistas constroem "uma representação instantânea e descontinuada da realidade" — a cobertura é muitas vezes superficial.' },
+{ cat:1, q:'Qual foi a importância da fotogravura (1851) para o jornalismo?', opts:['Permitiu a transmissão de imagens por satélite','Deu novo impulso à imprensa e inspirou o jornalismo a ser as "lentes" da sociedade','Criou o fotojornalismo digital','Substituiu o texto nos jornais'], ans:1, exp:'Segundo Traquina (2005), as melhorias na reprodução de imagem, especialmente com a fotogravura em 1851, deram um novo élan à imprensa e inspiraram o jornalismo no seu objetivo de serem as "lentes" da sociedade.' },
+{ cat:1, q:'A que levou a expansão da imprensa no século XIX em termos sociais?', opts:['À diminuição da democracia','À consolidação da independência económica do jornalismo e ao seu reconhecimento como "Quarto Poder"','Ao fechamento de escolas','À centralização do poder político'], ans:1, exp:'A expansão da imprensa no século XIX levou à independência económica dos jornais em relação aos subsídios políticos e ao reconhecimento do jornalismo como aliado da democracia e "Quarto Poder" (Sodré, 1999).' },
+
+// ── CAT 2: JORNAL DE ANGOLA ──
+{ cat:2, q:'Quando e por quem foi fundado o Jornal de Angola (originalmente)?', opts:['Em 1975, por Eduardo dos Santos','Em 1923, por Adolfo Pina, com o nome "A Província de Angola"','Em 1976, pelas Edições Novembro','Em 1960, pela imprensa colonial portuguesa'], ans:1, exp:'O Jornal de Angola foi fundado por Adolfo Pina, em 16 de agosto de 1923, com periodicidade semanal e com o nome "A Província de Angola".' },
+{ cat:2, q:'Qual foi a primeira tipografia a imprimir "A Província de Angola"?', opts:['Edições Novembro','Empresa Gráfica de Angola (EGA)','Tipografia Mondego','Litotipo'], ans:2, exp:'Inicialmente, o jornal era impresso na Tipografia Mondego. Em 5 de junho de 1924 passou a ser impresso na Empresa Gráfica de Angola-SARL (EGA).' },
+{ cat:2, q:'Quando passou "A Província de Angola" a jornal diário matutino de formato grande?', opts:['4 de outubro de 1926','15 de agosto de 1933','30 de junho de 1975','16 de agosto de 1923'], ans:1, exp:'Em 15 de agosto de 1933, passou a jornal diário matutino com formato grande.' },
+{ cat:2, q:'Até quando foi publicado com o nome "A Província de Angola"?', opts:['1960','1970','30 de junho de 1975','1976'], ans:2, exp:'Foi publicado até 30 de junho de 1975 com o nome "A Província de Angola", sob responsabilidade editorial da EGA.' },
+{ cat:2, q:'Quem comprou "A Província de Angola" em agosto de 1975 para fins de propaganda?', opts:['O MPLA','A FNLA, através de Holden Roberto com financiamento da CIA','As Edições Novembro','O Estado angolano'], ans:1, exp:'Holden Roberto, da FNLA, recebeu grandes somas da CIA em março de 1975 que lhe permitiram comprar "A Província de Angola" e a TV de Angola para fins de propaganda na reta final da independência.' },
+{ cat:2, q:'Qual é a editora do Jornal de Angola e como se chama o decreto que rege o seu funcionamento?', opts:['Edições Novembro, regida pelo Decreto Presidencial n.º 209/10','Imprensa Nacional, regida pela Lei de Imprensa n.º 7/06','EGA, regida pelo Decreto-Lei n.º 12/75','Agência Angola Press, regida pelo Decreto n.º 33/2000'], ans:0, exp:'O JA é publicado em Luanda pela editora Edições Novembro, e o seu funcionamento é regido pelo Decreto Presidencial n.º 209/10.' },
+{ cat:2, q:'Quando foi nacionalizada a EGA e como passou a chamar-se?', opts:['Em 1975, passando a chamar-se Imprensa Nacional','Em 1976, passando a chamar-se Edições Novembro','Em 1980, passando a chamar-se Angola Press','Em 1978, passando a chamar-se Publicações de Angola'], ans:1, exp:'Em 1976, a própria EGA foi finalmente nacionalizada, passando a chamar-se Edições Novembro, permanecendo como editora do Jornal de Angola.' },
+{ cat:2, q:'Qual é a circulação diária do Jornal de Angola (impresso)?', opts:['10.000 exemplares','30.000 exemplares','50.000 exemplares','100.000 exemplares'], ans:2, exp:'A circulação diária do JA é de cerca de 50.000 exemplares.' },
+{ cat:2, q:'Qual é a missão declarada do Jornal de Angola?', opts:['Maximizar lucros e audiência digital','Informar com rigor, isenção e objetividade, promovendo o acesso à informação de interesse público em todo o território nacional e no estrangeiro','Defender exclusivamente os interesses do Estado','Ser a primeira plataforma de notícias móveis de Angola'], ans:1, exp:'A missão do JA é: "informar com rigor, isenção e objetividade, promovendo o acesso à informação de interesse público em todo o território nacional e no estrangeiro."' },
+{ cat:2, q:'Qual é a visão do Jornal de Angola?', opts:['Fechar o jornal impresso e migrar 100% para digital','Consolidar-se como a referência incontornável da imprensa em Angola, liderando através da modernização tecnológica e expansão da distribuição física e digital','Tornar-se um jornal privado independente','Expandir-se para outros países africanos'], ans:1, exp:'A visão do JA é consolidar-se como a referência incontornável da imprensa em Angola, liderando o mercado através da modernização tecnológica e da expansão da sua capacidade de distribuição para todas as províncias.' },
+{ cat:2, q:'Quais as editorias do Jornal de Angola?', opts:['Apenas política e economia','Economia, política, sociedade, desporto, cultura, mundo e opinião','Saúde, educação, tecnologia e desporto','Internacional, nacional, cultura e moda'], ans:1, exp:'O JA publica notícias sobre política interna e externa e tem as seguintes editorias: Economia, política, sociedade, desporto, cultura, mundo e opinião.' },
+{ cat:2, q:'Qual das seguintes é uma agência noticiosa usada pelo Jornal de Angola?', opts:['CNN','BBC','ANGOP (Agência de Imprensa de Angola)','Xinhua apenas'], ans:2, exp:'O JA utiliza, entre outras, a ANGOP (Agência Angola Press), Agence France-Presse, Reuters, EFE, Prensa Latina, Lusa e Notícias ao Minuto.' },
+{ cat:2, q:'Qual a fase 1 da evolução digital do Jornal de Angola, e quando ocorreu?', opts:['Convergência Multimédia, 2015-2020','Transposição e Presença Institucional, 2001-2005','Estruturação do Domínio, 2006-2014','Novo Portal e Soberania Digital, 2021-presente'], ans:1, exp:'A Fase 1 é "Transposição e Presença Institucional (2001-2005)": uma presença "cartão de visita" na rede, com réplica das notícias do impresso sem hiperligações ou multimédia, atualizada uma vez por dia.' },
+{ cat:2, q:'O que caracterizou a Fase 2 (2006-2014) da evolução digital do JA?', opts:['Criação de assinaturas digitais','Criação do domínio .ao, barras de pesquisa e arquivos digitais organizados por anos e meses','Lançamento do novo portal com área reservada','Presença exclusiva nas redes sociais'], ans:1, exp:'Na Fase 2 (Estruturação do Domínio e Sociedade em Rede), com o domínio .ao, o portal ganhou arquitetura mais complexa, com barras de pesquisa e arquivos digitais. A internet em Angola deixou de ser luxo de elite.' },
+{ cat:2, q:'O que distingue a Fase 3 (2015-2020) da evolução digital do JA?', opts:['Apenas a criação de um aplicativo móvel','Convergência multimédia (vídeos e infografias), presença em redes sociais (Facebook e Twitter) e site responsivo para móveis','Encerramento do jornal impresso','A criação de um paywall completo'], ans:1, exp:'A Fase 3 (Convergência Multimédia e Redes Sociais) foi marcada pela Web 2.0: o JA integrou multimédia, utilizou redes sociais para interagir com o público em tempo real, e o site tornou-se responsivo para telemóveis.' },
+{ cat:2, q:'Quando foi lançado o novo portal "Jornal de Angola Online" (Fase 4)?', opts:['Janeiro de 2019','Março de 2020','Dezembro de 2021','Julho de 2023'], ans:2, exp:'O marco decisivo da Fase 4 (Lançamento do Novo Portal e Soberania Digital) ocorreu em dezembro de 2021, com o lançamento do novo portal Jornal de Angola Online, que introduziu assinaturas digitais e venda de PDF.' },
+{ cat:2, q:'Segundo Cláudio Gonçalves (2026), quantos utilizadores de internet tinha Angola em 2024?', opts:['6,6 milhões','9 milhões','Cerca de 12 milhões','20 milhões'], ans:2, exp:'Segundo os indicadores de Cláudio Gonçalves (2026), o número de utilizadores de internet em Angola saltou de 6,6 milhões em 2020 para cerca de 12 milhões em 2024.' },
+{ cat:2, q:'Quem é o Presidente do Conselho de Administração das Edições Novembro?', opts:['Cândido Bessa Receado','Xavier António','Drumond Alcides Jaime','Pereira Santana'], ans:2, exp:'O Conselho de Administração das Edições Novembro tem como Presidente Drumond Alcides Jaime, que é também o Diretor do Jornal de Angola.' },
+{ cat:2, q:'Quem chefia o Departamento de Jornalismo Online do JA?', opts:['Omar Prata','Pereira Santana','Xavier António','Nelma Inglês'], ans:2, exp:'O Chefe de Departamento do Jornal de Angola Online é Xavier António. Omar Prata é o Editor da Redação Online.' },
+{ cat:2, q:'O que o PressReader permite aos leitores do JA?', opts:['Acesso gratuito a todos os jornais do mundo','Consultar a réplica digital exata do jornal em qualquer parte do mundo','Partilhar artigos nas redes sociais','Receber notificações de última hora'], ans:1, exp:'O uso da plataforma PressReader permitiu ao JA que os leitores consultassem a réplica digital exata do jornal impresso em qualquer parte do mundo.' },
+{ cat:2, q:'Na Fase 1 da evolução digital, o modelo de negócio do JA era:', opts:['Pago — assinaturas digitais','Misto — impresso pago e digital gratuito','Gratuito com financiamento estatal','Baseado em publicidade digital'], ans:2, exp:'Na Fase 1 (Transposição, 2001-2010), o modelo de negócio era gratuito com financiamento estatal — sem qualquer tentativa de monetização do conteúdo digital.' },
+{ cat:2, q:'Qual o modelo de negócio do JA na Fase 3 (Novo Ecossistema, 2021-presente)?', opts:['Totalmente gratuito','Totalmente pago','Misto — assinaturas digitais e venda de PDF online','Exclusivamente publicidade'], ans:2, exp:'Na Fase 3 (Novo Ecossistema), o modelo é misto: assinaturas digitais e venda de PDF online, refletindo a estratégia de modernização das Edições Novembro.' },
+{ cat:2, q:'Qual dos seguintes jornais angolanos foi encerrado em 1976?', opts:['O Jornal de Angola','A Gazeta de Angola','A revista Angolense e o jornal A Vitória é Certa do MPLA','O Diário do País'], ans:2, exp:'Em 1976, por decisão do governo, foram encerradas a revista Angolense e o jornal "A Vitória é Certa" do MPLA, entre outras publicações.' },
+{ cat:2, q:'O que é a ANGOP?', opts:['A aplicação móvel do Jornal de Angola','A Agência de Imprensa de Angola, criada em julho de 1975 com o nome Agência Nacional Angola Press (ANAP)','O sindicato dos jornalistas angolanos','O departamento de multimédia das Edições Novembro'], ans:1, exp:'ANGOP é a Agência de Imprensa de Angola, criada em julho de 1975 com o nome de Agência Nacional Angola Press (ANAP), destinada à publicação de notícias.' },
+{ cat:2, q:'Qual foi a principal razão estratégica para o JA migrar para o digital, segundo André Sibi?', opts:['Reduzir o número de jornalistas','Acompanhar as tendências globais de consumo de informação, a crescente utilização de internet/móveis, maior rapidez e redução de custos de impressão','Obedecer a uma lei do Estado angolano','Competir com a televisão pública'], ans:1, exp:'André Sibi identificou como principais motivadores: acompanhar tendências globais, a crescente utilização de internet/dispositivos móveis, a rapidez na divulgação de notícias e a redução de custos de impressão e distribuição.' },
+{ cat:2, q:'Que desafio de infraestrutura limitou a transição digital do JA, segundo André Sibi?', opts:['Falta de computadores nas redações','A infraestrutura limitada em algumas áreas, afetando a conectividade e o acesso à internet','A falta de jornalistas qualificados','A ausência de redes sociais em Angola'], ans:1, exp:'André Sibi mencionou que a "infraestrutura limitada em algumas áreas, afetando a conectividade e o acesso à internet" foi um desafio significativo durante a transição digital.' },
+{ cat:2, q:'Como André Sibi descreve a aceitação do público digital do JA comparado ao impresso?', opts:['Negativa — o público rejeita o digital','Positiva, especialmente entre os jovens, com aumento de leitores e interações, mas ainda há público que valoriza o impresso','Igual — sem diferença significativa','Ainda indeterminada — sem dados suficientes'], ans:1, exp:'A aceitação tem sido positiva, especialmente entre gerações mais jovens. Houve aumento significativo de leitores e interações digitais, mas ainda existe uma parcela que valoriza o formato impresso, indicando a necessidade de estratégia híbrida.' },
+{ cat:2, q:'Quais os valores que regem o Jornal de Angola?', opts:['Lucro, audiência, velocidade e tecnologia','Isenção e rigor, patriotismo, inovação e ética jornalística','Independência editorial, pluralismo, diversidade e sustentabilidade','Serviço público, criatividade, inclusão e modernidade'], ans:1, exp:'Os valores do JA incluem: isenção e rigor (compromisso com a verdade), patriotismo (foco no desenvolvimento de Angola), inovação (adaptação às novas tecnologias) e ética jornalística (respeito pelos princípios deontológicos).' },
+{ cat:2, q:'Qual foi a mudança na estrutura editorial do JA com a migração para o digital, segundo André Sibi?', opts:['Redução do número de secções','Tornou-se mais ágil e integrada, com equipas multidisciplinares (jornalistas, editores, designers, TI) e ciclos de produção mais curtos','A separação total entre redação impressa e digital','A eliminação do departamento de fotografia'], ans:1, exp:'Segundo André Sibi, a estrutura editorial tornou-se "mais ágil e integrada, com equipas multidisciplinares que combinam jornalistas, editores, designers gráficos e técnicos de TI", com ciclos de produção mais curtos.' },
+
+// ── CAT 3: DADOS & ENTREVISTAS ──
+{ cat:3, q:'Qual a distribuição por género dos respondentes do inquérito?', opts:['80% masculino, 20% feminino','53% masculino, 47% feminino','50% masculino, 50% feminino','60% feminino, 40% masculino'], ans:1, exp:'O gráfico n.º 1 mostra uma ligeira predominância masculina: 53% masculino e 47% feminino.' },
+{ cat:3, q:'Qual a faixa etária predominante dos respondentes?', opts:['Menos de 18 anos','19-24 anos (53%) e 25-34 anos (41%)','35-44 anos','Acima dos 44 anos'], ans:1, exp:'A maioria dos participantes está nas faixas etárias mais jovens: 19-24 anos (53%) e 25-34 anos (41%), com apenas 6% na faixa 35-44 anos.' },
+{ cat:3, q:'Qual o grau académico mais comum entre os respondentes?', opts:['Mestrado','IIº Ciclo do Ensino Secundário (32%)','Frequência Universitária (53%)','Licenciatura (13%)'], ans:2, exp:'A maioria dos respondentes (53%) tem frequência universitária, seguidos de 32% com o IIº Ciclo do Ensino Secundário, 13% licenciados e 2% mestres.' },
+{ cat:3, q:'Qual a ocupação principal dos respondentes do inquérito?', opts:['Trabalhadores (47%)','Estudantes (47%)','Desempregados (47%)','Trabalhadores-Estudantes (47%)'], ans:1, exp:'A maioria dos entrevistados são estudantes (47%), seguidos de trabalhadores (21%), desempregados (17%) e trabalhadores-estudantes (15%).' },
+{ cat:3, q:'Com que frequência a maioria dos respondentes lê o Jornal de Angola?', opts:['Diariamente (21%)','Raramente (40%)','Semanalmente (21%)','Mensalmente (9%)'], ans:1, exp:'O gráfico n.º 5 mostra que 40% lê raramente e 9% nunca, somando 49% com pouca ou nenhuma frequência. 21% lê diariamente e 21% semanalmente.' },
+{ cat:3, q:'Qual a preferência de leitura do JA entre os inquiridos?', opts:['53% preferem o formato impresso','53% preferem o formato digital','53% não têm preferência','53% preferem o rádio'], ans:1, exp:'O gráfico n.º 6 mostra que 53% prefere o formato digital, 21% ainda prefere o impresso, e 26% não tem preferência definida.' },
+{ cat:3, q:'Qual a plataforma mais usada para aceder ao JA em formato digital?', opts:['Site oficial (15%)','Aplicativo móvel (11%)','Redes sociais (68%)','Email/Newsletter (2%)'], ans:2, exp:'O gráfico n.º 7 mostra que 68% dos leitores acede ao JA principalmente através das redes sociais, seguido do site oficial com 15% e do aplicativo móvel com 11%.' },
+{ cat:3, q:'Como a maioria dos respondentes avalia a qualidade do conteúdo digital do JA comparado ao impresso?', opts:['Muito inferior (21%)','Superior (42%)','Igual (24%)','Muito superior (13%)'], ans:1, exp:'O gráfico n.º 8 mostra que 42% avalia o digital como superior, 24% como igual, 13% como muito superior e 21% (somando inferior e muito inferior) considera-o pior.' },
+{ cat:3, q:'Qual o tipo de conteúdo mais apreciado no JA pelos respondentes?', opts:['Desporto (20%)','Reportagens especiais (7%)','Notícias gerais (46%)','Economia e negócios (18%)'], ans:2, exp:'O gráfico n.º 9 mostra que o conteúdo mais apreciado são as notícias gerais (46%), seguidas de economia e negócios (18%), desporto (20%) e reportagens especiais (7%).' },
+{ cat:3, q:'Qual a perceção sobre o impacto da transição digital na credibilidade do JA?', opts:['66% afirma que diminuiu','66% afirma que aumentou a credibilidade','66% diz que não teve impacto','66% diz não saber'], ans:1, exp:'O gráfico n.º 10 mostra que 66% percebe a transição como positiva para a credibilidade do JA, 11% acha que diminuiu, 6% que não teve impacto e 17% não sabe.' },
+{ cat:3, q:'Quanto dos respondentes sente maior envolvimento com o conteúdo digital do que com o impresso?', opts:['40%','60%','81%','95%'], ans:2, exp:'O gráfico n.º 11 mostra que 81% dos inquiridos sente maior envolvimento com o conteúdo digital do JA, 15% não se sente mais envolvido e 4% não sabe.' },
+{ cat:3, q:'O comunicólogo entrevistado vê a transição digital do JA como:', opts:['Um problema grave','Uma evolução natural e necessária para acompanhar tendências globais e ampliar o alcance','Um fracasso empresarial','Uma imposição política'], ans:1, exp:'O comunicólogo afirma que "a transição do Jornal de Angola do formato tradicional para o digital é uma evolução natural, necessária para acompanhar as tendências globais de consumo de informação e para ampliar o alcance do jornal."' },
+{ cat:3, q:'O sociólogo levanta que preocupação sobre a transição digital do JA?', opts:['A perda de qualidade jornalística','As desigualdades no acesso digital que limitam o impacto social','O excesso de publicidade no site','A extinção do jornalismo investigativo'], ans:1, exp:'O sociólogo afirma que "a migração pode ter melhorado a qualidade da informação para alguns segmentos, mas ainda há desigualdades no acesso digital que limitam o impacto social."' },
+{ cat:3, q:'Que perspetiva particular traz o psicólogo sobre o digital do JA?', opts:['Preocupa-se com o modelo de negócios','Foca nos impactos psicológicos negativos e na sobrecarga cognitiva dos leitores no ambiente digital saturado','Defende o encerramento do impresso','Propõe mais conteúdo de entretenimento'], ans:1, exp:'O psicólogo traz a perspetiva do indivíduo: "o excesso de estímulos digitais afeta a atenção e o discernimento crítico dos leitores" e importa "promover um ambiente digital saudável que minimize impactos psicológicos negativos."' },
+{ cat:3, q:'Qual dos três especialistas entrevistados tem uma visão mais otimista sobre a interação digital do JA?', opts:['O sociólogo','O psicólogo','O comunicólogo','Nenhum deles'], ans:2, exp:'O comunicólogo tem uma visão mais otimista sobre a interação digital do JA: "tem sido positiva, com maior engajamento dos leitores, possibilitando feedback instantâneo e uma relação mais próxima entre jornal e público."' },
+{ cat:3, q:'Qual o desafio principal identificado pelo comunicólogo para o JA no ambiente digital?', opts:['A inclusão digital e a desinformação','A saúde mental dos utilizadores','A adaptação tecnológica, a manutenção da credibilidade e a monetização do conteúdo digital','A concorrência da televisão pública'], ans:2, exp:'O comunicólogo identifica como principais desafios: "a adaptação tecnológica, a manutenção da credibilidade e a monetização do conteúdo digital, que exige novas estratégias."' },
+{ cat:3, q:'Quem foram os três especialistas entrevistados para a pesquisa?', opts:['Um jornalista, um economista e um político','Um psicólogo (Amós Luciano), um comunicólogo (Anderson Quinjongo) e um sociólogo (Daniel Fernandes)','Um educador, um médico e um advogado','Um diretor do JA, um leitor habitual e um anunciante'], ans:1, exp:'Os especialistas entrevistados foram: Amós Luciano (Psicólogo), Anderson Quinjongo (Comunicólogo) e Daniel Fernandes (Sociólogo).' },
+{ cat:3, q:'Em que percentagem os inquiridos nunca leem o Jornal de Angola?', opts:['1%','3%','9%','15%'], ans:2, exp:'O gráfico n.º 5 mostra que 9% dos respondentes nunca lê o Jornal de Angola.' },
+{ cat:3, q:'Qual o método de análise qualitativa adotado na monografia?', opts:['Análise de conteúdo','Análise do discurso','Grounded theory','Fenomenologia'], ans:1, exp:'O método de análise qualitativa adotado foi a análise do discurso, por combinar com as entrevistas semi-estruturadas e permitir ao entrevistado dar uma perspetiva própria da sua narrativa.' },
+{ cat:3, q:'O que o sociólogo considera essencial para o JA manter a relevância no digital?', opts:['Investir em tecnologia de ponta','Promover a participação cidadã e reconhecer a diversidade cultural e social do país','Reduzir o número de jornalistas','Eliminar o formato impresso rapidamente'], ans:1, exp:'O sociólogo defende que "manter a relevância passa por promover a participação cidadã e reconhecer a diversidade cultural e social do país."' },
+{ cat:3, q:'O que o psicólogo considera essencial para o JA na era digital?', opts:['Aumentar o número de publicações diárias','Equilibrar inovação tecnológica com estratégias que promovam o bem-estar mental dos leitores e a responsabilidade emocional no jornalismo','Criar mais conteúdo viral','Reduzir o tamanho dos artigos'], ans:1, exp:'O psicólogo considera essencial "equilibrar inovação tecnológica com estratégias que promovam o bem-estar mental dos leitores e a responsabilidade emocional no jornalismo."' },
+{ cat:3, q:'Qual é a entidade que publicou os indicadores de transformação digital em Angola usados na monografia?', opts:['Ministério das Telecomunicações de Angola','Instituto de Telecomunicações (ITEL), referenciado por Cláudio Gonçalves em 2026','Banco Mundial','ANGOP'], ans:1, exp:'Os indicadores foram publicados pelo Instituto de Telecomunicações (ITEL), referenciados por Cláudio Gonçalves em 2026 na monografia.' },
+
+// ── CAT 4: CONCLUSÃO & SUGESTÕES ──
+{ cat:4, q:'Qual das hipóteses foi confirmada pela pesquisa?', opts:['Apenas a H2','Apenas a H1','Ambas H1 e H2','Nenhuma das hipóteses'], ans:1, exp:'A H1 foi confirmada (desafios: concorrência com plataformas nativas, monetização e adaptação de competências). A H2 não foi confirmada, pois o JA tem sim procurado adaptar-se ao digital.' },
+{ cat:4, q:'Qual a primeira sugestão da monografia para o JA manter-se relevante?', opts:['Encerrar o jornal impresso imediatamente','Implementar uma redação única "Digital First" (Primeiro o Digital)','Criar um canal de televisão próprio','Reduzir o preço da assinatura digital'], ans:1, exp:'A primeira sugestão é implementar uma redação única "Digital First", onde os jornalistas produzam conteúdos pensando primeiro na plataforma online e, posteriormente, na adaptação para o impresso.' },
+{ cat:4, q:'Uma das sugestões para o JA é criar uma versão "Lite" do portal. Qual seria o objetivo?', opts:['Tornar o site mais rápido para computadores de alta velocidade','Baixo consumo de dados móveis e parcerias com operadoras (Unitel/Africel) para acesso gratuito ao domínio .ao','Simplificar o design para utilizadores mais velhos','Criar uma versão exclusiva para publicidade'], ans:1, exp:'A sugestão de criar uma versão Lite do portal visa reduzir o consumo de dados móveis e estabelecer parcerias com operadoras como Unitel e Africel para acesso gratuito ou bonificado ao domínio .ao.' },
+{ cat:4, q:'Qual é a sugestão desta monografia relacionada com a Inteligência Artificial?', opts:['Substituir jornalistas por IA','Capacitar o corpo redatorial para o uso ético de ferramentas de IA na recolha de dados e tradução','Criar um chatbot para substituir o serviço ao cliente','Usar IA apenas para design gráfico'], ans:1, exp:'A monografia sugere capacitar o corpo redatorial para o uso ético de ferramentas de Inteligência Artificial na recolha de dados e tradução.' },
+{ cat:4, q:'Que sugestão está relacionada com a participação do público no site do JA?', opts:['Eliminar a secção de comentários','Criar espaços de verificação de factos (fact-checking) e fóruns de debate moderados dentro do portal','Limitar o acesso à informação apenas a assinantes','Criar um sistema de avaliação dos jornalistas pelos leitores'], ans:1, exp:'A monografia sugere criar espaços de verificação de factos (fact-checking) e fóruns de debate moderados dentro do portal, incentivando a participação cívica.' },
+{ cat:4, q:'Que tipo de conteúdo multimédia é sugerido para ampliar o alcance do JA?', opts:['Filmes de ficção e séries','Podcasts diários com resumo das notícias e infografias interativas para temas complexos','Videoaulas de jornalismo','Transmissões de eventos desportivos'], ans:1, exp:'A monografia sugere produzir podcasts diários com o resumo das notícias e infografias interativas para temas complexos como economia e política.' },
+
+// ── CAT 5: INTERPRETAÇÃO & ANÁLISE ──
+{ cat:5, q:'O que a análise dos dados conclui sobre a transição digital do JA (síntese geral)?', opts:['Foi um fracasso que deve ser revertido','É um passo positivo que requer acompanhamento contínuo e adaptação às necessidades do público','Foi um processo já completamente concluído','Foi desnecessária dado que o impresso ainda domina'], ans:1, exp:'A síntese dos gráficos evidencia que "a transição do JA para o digital é um passo positivo, mas requer um acompanhamento contínuo e uma adaptação às necessidades do público."' },
+{ cat:5, q:'O que a análise da resposta de André Sibi sobre as mudanças estruturais revela?', opts:['Que a transição afetou apenas a tecnologia','Que a transição não afetou apenas a tecnologia, mas também a gestão e a dinâmica de trabalho da redação','Que a redação foi reduzida em tamanho','Que a qualidade jornalística diminuiu com o digital'], ans:1, exp:'A análise da resposta de André Sibi sobre as mudanças na estrutura editorial "sugere uma reorganização organizacional necessária para o novo ambiente" e "valida a ideia de que a transição digital não afeta apenas a tecnologia, mas também a gestão e a dinâmica de trabalho da redação."' },
+{ cat:5, q:'Como se interpreta o facto de 53% dos respondentes preferirem o digital e 26% não ter preferência?', opts:['O impresso está em vias de extinção imediata','Mostra uma clara tendência de migração para o digital, corroborando o tema da monografia','O digital é inferior ao impresso em Angola','Não há conclusão possível com estes dados'], ans:1, exp:'Os dados mostram "uma clara tendência de migração para o digital, o que corrobora o tema da monografia sobre a evolução do jornalismo tradicional para o digital."' },
+{ cat:5, q:'O que o domínio das redes sociais (68%) como plataforma de acesso ao JA implica estrategicamente?', opts:['O site oficial deve ser encerrado','As redes sociais são o principal canal de distribuição e consumo de notícias digitais, sendo essenciais para a estratégia do JA','O JA deve abandonar as redes sociais por falta de controlo editorial','Apenas o Facebook é relevante para o JA'], ans:1, exp:'O dado evidencia "a importância das redes sociais como principal canal de distribuição e consumo de notícias digitais atualmente." O site oficial ainda mantém relevância (25%), indicando que parte do público prefere o acesso direto ao portal.' },
+{ cat:5, q:'Como se interpreta o facto de os jovens (19-34 anos) constituírem 94% dos respondentes?', opts:['Os idosos são os principais leitores do JA','Os jovens constituem o principal público do digital, sendo os mais familiarizados com tecnologias, e esse dado influencia as estratégias de conteúdo do JA','O estudo não é representativo da população angolana total','Os jovens rejeitam o jornalismo tradicional'], ans:1, exp:'A predominância de jovens (19-34 anos = 94%) indica que o estudo é baseado na perceção dos que são "geralmente mais familiarizados e conectados com as tecnologias digitais" — "a faixa etária mais propensa a consumir notícias em plataformas digitais."' },
+{ cat:5, q:'O que significa a divergência de perspetivas entre o comunicólogo, sociólogo e psicólogo na monografia?', opts:['Que não há consenso sobre o valor do jornalismo digital','As perspetivas são complementares: o comunicólogo foca no jornal (negócio/tecnologia), o sociólogo na sociedade (inclusão/desinformação) e o psicólogo no indivíduo (saúde mental/cognição)','Que um deles está errado','Que a transição digital falhou em todos os domínios'], ans:1, exp:'As perspetivas dos três especialistas são complementares e não contraditórias: cada um analisa a transição a partir do seu domínio — o comunicólogo focando no jornal, o sociólogo na sociedade e o psicólogo no impacto individual.' },
+{ cat:5, q:'O que o facto de 49% dos inquiridos ler o JA raramente ou nunca implica para o jornal?', opts:['O jornal está a falhar totalmente','Que existem desafios na fidelização de leitores, e o JA precisa de se reinventar para aumentar e fidelizar a sua audiência','Que o público prefere a rádio à imprensa','Que a investigação tem uma amostra não representativa'], ans:1, exp:'Este dado "reflete desafios para o jornal tradicional, que precisa se reinventar para aumentar e fidelizar leitores" — uma audiência maioritariamente esporádica é um sinal de alerta para a sustentabilidade do JA.' }
+];
+
+// =====================================
+// ESTADO GLOBAL
+// =====================================
+let totalPoints = 0;
+let currentCat = 'all';
+let quizPool = [];
+let quizIdx = 0;
+let quizCorrect = 0;
+let quizWrong = 0;
+let quizAnswered = false;
+let fcPool = [];
+let fcIdx = 0;
+let fcFlipped = false;
+let fcKnown = new Set();
+let fcUnknown = new Set();
+let boardPlayers = [];
+let boardCurrent = 0;
+let boardDiced = false;
+let boardQ = null;
+let boardAnswered = false;
+const TOKENS = ['🔴','🔵','🟢','🟡'];
+
+// =====================================
+// IA — EMBARALHAMENTO INTELIGENTE
+// =====================================
+function aiShuffle(arr) {
+  // Fisher-Yates com seed pseudo-aleatório baseado no tempo
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function getAiHint(q) {
+  // IA interna: gera dica contextual com base na categoria
+  const catHints = {
+    0: 'Pensa na metodologia da pesquisa, nos objetivos do estudo e nas hipóteses formuladas.',
+    1: 'Recorda os conceitos teóricos, a história do jornalismo e a evolução tecnológica da imprensa.',
+    2: 'Foca nos factos históricos do Jornal de Angola, nas suas fases de evolução digital e na estrutura organizacional.',
+    3: 'Revê os dados dos gráficos e as respostas das entrevistas com os especialistas.',
+    4: 'Pensa nas conclusões da pesquisa e nas sugestões práticas propostas pelas autoras.',
+    5: 'Analisa o significado dos dados recolhidos e o que eles implicam para o JA e para a sociedade angolana.'
+  };
+  return catHints[q.cat] || 'Lê com atenção todas as opções antes de escolher.';
+}
+
+// =====================================
+// NAVEGAÇÃO
+// =====================================
+function goTab(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('screen-' + id).classList.add('active');
+  document.querySelectorAll('.tab').forEach(t => {
+    if (t.textContent.toLowerCase().includes(id === 'home' ? 'início' : id === 'quiz' ? 'quiz' : id === 'flash' ? 'flash' : id === 'board' ? 'tabuleiro' : 'estudo')) {
+      t.classList.add('active');
+    }
+  });
+  if (id === 'flash') { fcFilter(); }
+  if (id === 'study') { studyFilter(); }
+  if (id === 'home') { updateHomeStats(); }
+}
+
+// =====================================
+// QUIZ
+// =====================================
+function showCatSelect() {
+  document.getElementById('quiz-cat-select').style.display = '';
+  document.getElementById('quiz-play').style.display = 'none';
+  document.getElementById('quiz-result').style.display = 'none';
+}
+
+function startQuiz(cat) {
+  currentCat = cat;
+  let pool = cat === 'all' ? [...QUESTIONS] : QUESTIONS.filter(q => q.cat === cat);
+  quizPool = aiShuffle(pool);
+  quizIdx = 0; quizCorrect = 0; quizWrong = 0;
+  document.getElementById('quiz-cat-select').style.display = 'none';
+  document.getElementById('quiz-play').style.display = '';
+  document.getElementById('quiz-result').style.display = 'none';
+  document.getElementById('qTotal').textContent = quizPool.length;
+  showQuestion();
+}
+
+function showQuestion() {
+  const q = quizPool[quizIdx];
+  quizAnswered = false;
+  document.getElementById('qNum').textContent = quizIdx + 1;
+  document.getElementById('qNumLabel').textContent = 'Pergunta ' + (quizIdx + 1) + ' de ' + quizPool.length;
+  document.getElementById('qText').textContent = q.q;
+  document.getElementById('qScore').textContent = quizCorrect;
+  document.getElementById('qWrong').textContent = quizWrong;
+  document.getElementById('qProgress').style.width = (quizIdx / quizPool.length * 100) + '%';
+  const badge = document.getElementById('qCatBadge');
+  badge.textContent = CATS[q.cat].name;
+  badge.style.background = CATS[q.cat].color;
+  const fb = document.getElementById('qFeedback');
+  fb.className = 'feedback-box'; fb.textContent = '';
+  const aiH = document.getElementById('aiHint');
+  aiH.className = 'ai-hint-box';
+  document.getElementById('qNextBtn').style.display = 'none';
+  document.getElementById('qHintBtn').style.display = '';
+  // Embaralhar opções com IA
+  const opts = q.opts.map((o, i) => ({ text: o, original: i }));
+  const shuffled = aiShuffle(opts);
+  const correctShuffledIdx = shuffled.findIndex(o => o.original === q.ans);
+  const letters = ['A','B','C','D'];
+  const container = document.getElementById('qOptions');
+  container.innerHTML = '';
+  shuffled.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'option-btn';
+    btn.onclick = () => selectAnswer(i, i === correctShuffledIdx, q.exp, btn);
+    btn.innerHTML = `<span class="option-letter">${letters[i]}</span>${opt.text}`;
+    container.appendChild(btn);
+  });
+}
+
+function selectAnswer(idx, correct, explanation, btn) {
+  if (quizAnswered) return;
+  quizAnswered = true;
+  const btns = document.querySelectorAll('#qOptions .option-btn');
+  btns.forEach(b => b.disabled = true);
+  if (correct) {
+    btn.classList.add('correct');
+    quizCorrect++;
+    totalPoints += 10;
+    document.getElementById('qScore').textContent = quizCorrect;
+  } else {
+    btn.classList.add('wrong');
+    quizWrong++;
+    document.getElementById('qWrong').textContent = quizWrong;
+    // Marcar a correta
+    btns.forEach(b => {
+      if (!b.classList.contains('wrong') && b !== btn) {
+        // encontrar a correta pela sua classe
+      }
+    });
+  }
+  updateGlobalScore();
+  const fb = document.getElementById('qFeedback');
+  fb.textContent = (correct ? '✅ Correto! ' : '❌ Errado. ') + explanation;
+  fb.className = 'feedback-box show ' + (correct ? 'correct' : 'wrong');
+  document.getElementById('aiHint').className = 'ai-hint-box';
+  document.getElementById('qHintBtn').style.display = 'none';
+  document.getElementById('qNextBtn').style.display = '';
+}
+
+function showAiHint() {
+  if (quizAnswered) return;
+  const q = quizPool[quizIdx];
+  const hint = getAiHint(q);
+  document.getElementById('aiHintText').textContent = hint;
+  document.getElementById('aiHint').className = 'ai-hint-box show';
+  totalPoints -= 2;
+  updateGlobalScore();
+}
+
+function nextQuestion() {
+  quizIdx++;
+  if (quizIdx >= quizPool.length) {
+    showResults();
+  } else {
+    showQuestion();
+  }
+}
+
+function showResults() {
+  document.getElementById('quiz-play').style.display = 'none';
+  document.getElementById('quiz-result').style.display = '';
+  const total = quizPool.length;
+  const acc = Math.round(quizCorrect / total * 100);
+  const earned = quizCorrect * 10;
+  let emoji = '😔', title = 'Continua a tentar!';
+  if (acc >= 90) { emoji = '🏆'; title = 'Excelente!'; }
+  else if (acc >= 70) { emoji = '⭐'; title = 'Muito bom!'; }
+  else if (acc >= 50) { emoji = '👍'; title = 'Bom trabalho!'; }
+  else if (acc >= 30) { emoji = '📚'; title = 'Estuda mais!'; }
+  document.getElementById('resEmoji').textContent = emoji;
+  document.getElementById('resTitle').textContent = title;
+  document.getElementById('resScore').textContent = `${quizCorrect} de ${total} corretas (${acc}%)`;
+  document.getElementById('resCorrect').textContent = quizCorrect;
+  document.getElementById('resWrong').textContent = quizWrong;
+  document.getElementById('resAcc').textContent = acc + '%';
+  document.getElementById('resPoints').textContent = '+' + earned + ' pts';
+  updateHomeStats();
+}
+
+// =====================================
+// FLASHCARDS
+// =====================================
+function fcFilter() {
+  const val = document.getElementById('fcCatFilter').value;
+  fcPool = val === 'all' ? aiShuffle([...QUESTIONS]) : aiShuffle(QUESTIONS.filter(q => q.cat === parseInt(val)));
+  fcIdx = 0;
+  fcFlipped = false;
+  document.getElementById('fcCard').classList.remove('flipped');
+  document.getElementById('fcKnownBtns').style.display = 'none';
+  updateFcCard();
+}
+
+function updateFcCard() {
+  if (!fcPool.length) return;
+  const q = fcPool[fcIdx];
+  document.getElementById('fcQuestion').textContent = q.q;
+  document.getElementById('fcAnswer').textContent = q.opts[q.ans];
+  document.getElementById('fcCatLabel').textContent = CATS[q.cat].name;
+  document.getElementById('fcPos').textContent = (fcIdx + 1) + ' / ' + fcPool.length;
+  document.getElementById('fcCounter').textContent = (fcIdx + 1) + ' / ' + fcPool.length;
+  document.getElementById('fcUnknownCount').textContent = fcUnknown.size;
+  document.getElementById('fcKnownCount').textContent = fcKnown.size;
+  document.getElementById('fcUnknown2').textContent = fcUnknown.size;
+}
+
+function flipCard() {
+  fcFlipped = !fcFlipped;
+  document.getElementById('fcCard').classList.toggle('flipped', fcFlipped);
+  document.getElementById('fcKnownBtns').style.display = fcFlipped ? 'flex' : 'none';
+}
+
+function fcMove(dir) {
+  fcIdx = (fcIdx + dir + fcPool.length) % fcPool.length;
+  fcFlipped = false;
+  document.getElementById('fcCard').classList.remove('flipped');
+  document.getElementById('fcKnownBtns').style.display = 'none';
+  updateFcCard();
+}
+
+function markCard(known) {
+  const q = fcPool[fcIdx];
+  const key = q.cat + '_' + q.q.substring(0, 20);
+  if (known) { fcKnown.add(key); fcUnknown.delete(key); totalPoints += 2; updateGlobalScore(); }
+  else { fcUnknown.add(key); fcKnown.delete(key); }
+  fcMove(1);
+}
+
+function fcShuffle() {
+  fcPool = aiShuffle(fcPool);
+  fcIdx = 0; fcFlipped = false;
+  document.getElementById('fcCard').classList.remove('flipped');
+  document.getElementById('fcKnownBtns').style.display = 'none';
+  updateFcCard();
+}
+
+function fcShowUnknown() {
+  if (!fcUnknown.size) return;
+  fcPool = aiShuffle(QUESTIONS.filter(q => fcUnknown.has(q.cat + '_' + q.q.substring(0, 20))));
+  fcIdx = 0; fcFlipped = false;
+  document.getElementById('fcCard').classList.remove('flipped');
+  document.getElementById('fcKnownBtns').style.display = 'none';
+  updateFcCard();
+}
+
+function fcReset() {
+  fcKnown.clear(); fcUnknown.clear();
+  document.getElementById('fcCatFilter').value = 'all';
+  fcFilter();
+}
+
+// =====================================
+// STUDY MODE
+// =====================================
+function studyFilter() {
+  const cat = document.getElementById('studyCatFilter').value;
+  const search = document.getElementById('studySearch').value.toLowerCase();
+  let pool = cat === 'all' ? QUESTIONS : QUESTIONS.filter(q => q.cat === parseInt(cat));
+  if (search) pool = pool.filter(q => q.q.toLowerCase().includes(search) || q.opts[q.ans].toLowerCase().includes(search));
+  const container = document.getElementById('studyList');
+  container.innerHTML = '';
+  pool.forEach((q, i) => {
+    const div = document.createElement('div');
+    div.className = 'study-card';
+    div.innerHTML = `
+      <div class="study-q" onclick="toggleStudy(this)">
+        <div>
+          <span class="study-badge" style="background:${CATS[q.cat].color}">${CATS[q.cat].name}</span><br>
+          ${q.q}
+        </div>
+        <span style="font-size:1.2rem;flex-shrink:0">›</span>
+      </div>
+      <div class="study-a">
+        <strong>✅ ${q.opts[q.ans]}</strong>
+        <p style="margin-top:6px;font-size:0.82rem;color:var(--muted)">${q.exp}</p>
+      </div>
+    `;
+    container.appendChild(div);
+  });
+  if (!pool.length) container.innerHTML = '<div style="text-align:center;padding:30px;color:var(--muted)">Nenhuma pergunta encontrada</div>';
+}
+
+function toggleStudy(btn) {
+  const ans = btn.nextElementSibling;
+  const icon = btn.querySelector('span:last-child');
+  const open = ans.classList.toggle('open');
+  icon.textContent = open ? '⌄' : '›';
+  if (open) { totalPoints += 1; updateGlobalScore(); }
+}
+
+// =====================================
+// BOARD GAME
+// =====================================
+function startBoard() {
+  const names = ['p1name','p2name','p3name','p4name']
+    .map(id => document.getElementById(id).value.trim())
+    .filter(n => n);
+  if (!names.length) { alert('Introduz pelo menos um jogador!'); return; }
+  boardPlayers = names.map((n, i) => ({ name: n, score: 0, pos: 0, token: TOKENS[i] }));
+  boardCurrent = 0;
+  document.getElementById('boardSetup').style.display = 'none';
+  document.getElementById('boardGame').style.display = '';
+  renderBoard();
+  renderPlayers();
+}
+
+function renderBoard() {
+  const track = document.getElementById('boardTrack');
+  track.innerHTML = '';
+  const cells = 30;
+  const catSeq = [0,1,2,3,4,5,0,1,2,3,4,5,0,1,2,3,4,5,0,1,2,3,4,5,0,1,2,3,4,5];
+  for (let i = 0; i < cells; i++) {
+    const cell = document.createElement('div');
+    if (i === 0) { cell.className = 'cell start'; cell.textContent = '▶'; }
+    else if (i === cells - 1) { cell.className = 'cell end'; cell.textContent = '🏆'; }
+    else { cell.className = 'cell cat' + ((catSeq[i]) + 1); cell.textContent = i + 1; }
+    // Mostrar tokens dos jogadores nesta casa
+    boardPlayers.forEach(p => {
+      if (p.pos === i) {
+        const t = document.createElement('span');
+        t.className = 'token'; t.textContent = p.token;
+        cell.appendChild(t);
+      }
+    });
+    track.appendChild(cell);
+  }
+}
+
+function renderPlayers() {
+  const cont = document.getElementById('boardPlayers');
+  cont.innerHTML = '';
+  boardPlayers.forEach((p, i) => {
+    const chip = document.createElement('div');
+    chip.className = 'player-chip' + (i === boardCurrent ? ' active' : '');
+    chip.innerHTML = `<div class="pname">${p.token} ${p.name}</div><div class="pscore">${p.score}</div><div class="ppos">Casa ${p.pos}</div>`;
+    cont.appendChild(chip);
+  });
+}
+
+function rollDice() {
+  if (boardDiced) return;
+  const roll = Math.floor(Math.random() * 6) + 1;
+  const faces = ['','⚀','⚁','⚂','⚃','⚄','⚅'];
+  document.getElementById('diceBtn').textContent = faces[roll];
+  const p = boardPlayers[boardCurrent];
+  p.pos = Math.min(p.pos + roll, 29);
+  document.getElementById('diceResult').textContent = `${p.name} tirou ${roll} — avançou para a casa ${p.pos}`;
+  boardDiced = true;
+  renderBoard(); renderPlayers();
+  // Verificar vitória
+  if (p.pos >= 29) {
+    document.getElementById('diceResult').textContent = `🏆 ${p.name} chegou ao fim e ganhou o jogo!`;
+    return;
+  }
+  // Determinar categoria da casa
+  const catSeq = [0,1,2,3,4,5,0,1,2,3,4,5,0,1,2,3,4,5,0,1,2,3,4,5,0,1,2,3,4,5];
+  const catIdx = catSeq[p.pos];
+  setTimeout(() => showBoardQuestion(catIdx), 600);
+}
+
+function showBoardQuestion(catIdx) {
+  boardAnswered = false;
+  const pool = aiShuffle(QUESTIONS.filter(q => q.cat === catIdx));
+  boardQ = pool[0];
+  const area = document.getElementById('boardQuestionArea');
+  const letters = ['A','B','C','D'];
+  const shuffOpts = aiShuffle(boardQ.opts.map((o, i) => ({ text: o, original: i })));
+  const correctIdx = shuffOpts.findIndex(o => o.original === boardQ.ans);
+  area.innerHTML = `
+    <div class="board-q-card">
+      <span class="cat-badge" style="background:${CATS[catIdx].color}">${CATS[catIdx].name}</span>
+      <div class="question-text" style="margin:8px 0 14px">${boardQ.q}</div>
+      <div class="options-list" id="boardOpts">
+        ${shuffOpts.map((o, i) => `<button class="option-btn" onclick="boardAnswer(${i}, ${i === correctIdx})" id="bopt${i}"><span class="option-letter">${letters[i]}</span>${o.text}</button>`).join('')}
+      </div>
+      <div class="feedback-box" id="boardFb"></div>
+    </div>
+    <div class="dice-area">
+      <button class="dice-btn" id="diceBtn" onclick="nextBoardTurn()" style="display:none">▶</button>
+      <div class="dice-result" id="diceResult"></div>
+    </div>
+  `;
+}
+
+function boardAnswer(idx, correct) {
+  if (boardAnswered) return;
+  boardAnswered = true;
+  const p = boardPlayers[boardCurrent];
+  const btns = document.querySelectorAll('#boardOpts .option-btn');
+  btns.forEach(b => b.disabled = true);
+  btns[idx].classList.add(correct ? 'correct' : 'wrong');
+  const fb = document.getElementById('boardFb');
+  if (correct) {
+    p.score += 10; totalPoints += 10;
+    fb.textContent = `✅ Correto! +10 pontos para ${p.name}`;
+    fb.className = 'feedback-box show correct';
+  } else {
+    p.pos = Math.max(0, p.pos - 2);
+    fb.textContent = `❌ Errado. ${p.name} recua 2 casas. ${boardQ.opts[boardQ.ans]}`;
+    fb.className = 'feedback-box show wrong';
+    renderBoard();
+  }
+  updateGlobalScore();
+  renderPlayers();
+  const diceBtn = document.getElementById('diceBtn');
+  if (diceBtn) { diceBtn.style.display = ''; diceBtn.textContent = '▶ Próximo turno'; }
+}
+
+function nextBoardTurn() {
+  boardCurrent = (boardCurrent + 1) % boardPlayers.length;
+  boardDiced = false;
+  renderPlayers();
+  document.getElementById('boardQuestionArea').innerHTML = `
+    <div class="dice-area">
+      <button class="dice-btn" id="diceBtn" onclick="rollDice()">🎲</button>
+      <div class="dice-result" id="diceResult">${boardPlayers[boardCurrent].name}: Clica para lançar o dado</div>
+    </div>
+  `;
+}
+
+function resetBoard() {
+  document.getElementById('boardSetup').style.display = '';
+  document.getElementById('boardGame').style.display = 'none';
+  document.getElementById('boardQuestionArea').innerHTML = `<div class="dice-area"><button class="dice-btn" id="diceBtn" onclick="rollDice()">🎲</button><div class="dice-result" id="diceResult">Clica para lançar o dado</div></div>`;
+}
+
+// =====================================
+// SCORE & STATS
+// =====================================
+function updateGlobalScore() {
+  if (totalPoints < 0) totalPoints = 0;
+  document.getElementById('globalScore').textContent = totalPoints + ' pts';
+}
+
+function updateHomeStats() {
+  const pct = Math.round((fcKnown.size / QUESTIONS.length) * 100);
+  document.getElementById('homeProgress').textContent = pct + '%';
+}
+
+// =====================================
+// INIT
+// =====================================
+fcFilter();
+studyFilter();
+</script>
+</body>
+</html>
